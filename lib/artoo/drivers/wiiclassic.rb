@@ -91,7 +91,7 @@ module Artoo
         {
           :lx => decode_value(value, 0) & 0x3f,
           :ly => decode_value(value, 1) & 0x3f,
-          :rx => ((decode_value(value, 0) & 0xC0) >> 2)  | ((decode_value(value, 1) & 0xC0) >> 4) | (decode_value(value, 2)[7]),
+          :rx => ((decode_value(value, 0) & 0xC0) >> 3)  | ((decode_value(value, 1) & 0xC0) >> 5) | (decode_value(value, 2)[7]),
           :ry => decode_value(value, 2) & 0x1f
         }
       end
