@@ -30,7 +30,8 @@ module Artoo
 
       def handle_events
         while i = find_event("digital-read-#{pin}") do
-          update(events.slice!(i).data.first)
+          event = events.slice!(i)
++         update(event.data.first) if !event.nil?
         end
       end
 
