@@ -5,7 +5,7 @@ module Artoo
     # The LED driver behaviors
     class Led < Driver
 
-      COMMANDS = [:on, :off, :toggle, :brightness].freeze
+      COMMANDS = [:firmware_name, :version, :on, :off, :toggle, :brightness].freeze
 
       # @return [Boolean] True if on
       def is_on?
