@@ -3,7 +3,7 @@ PATH
   specs:
     artoo-arduino (1.0.0.pre)
       artoo (~> 1.0.0.pre)
-      hybridgroup-firmata (~> 0.4.0)
+      hybridgroup-firmata (~> 0.4.1)
 
 GEM
   remote: http://rubygems.org/
@@ -27,7 +27,7 @@ GEM
       certified
       http_parser.rb
     http_parser.rb (0.5.3)
-    hybridgroup-firmata (0.4.0)
+    hybridgroup-firmata (0.4.1)
       event_spitter
     metaclass (0.0.1)
     method_source (0.8.1)
