@@ -1,6 +1,6 @@
 # Artoo Adaptor For Arduino
 
-This repository contains the Artoo (http://artoo.io/) adaptor and drivers for the Arduino microcontroller using the firmata protocol.
+This repository contains the Artoo (http://artoo.io/) adaptor and drivers for the Arduino microcontroller using the Firmata (http://firmata.org) or Littlewire (http://littlewire.cc/) protocols.
 
 Artoo is a open source micro-framework for robotics using Ruby.
 
