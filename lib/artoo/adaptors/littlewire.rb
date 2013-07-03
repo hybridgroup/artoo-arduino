@@ -12,14 +12,14 @@ module Artoo
       def connect
         require 'littlewire' unless defined?(::LittleWire)
         @littlewire = ::LittleWire.new(connect_to)
-        @littlewire.connect
         super
         return true
       end
 
-      # Closes connection with firmata board
+      # Closes connection with littlewire board
       # @return [Boolean]
       def disconnect
+        @littlewire.finished
         super
       end
 
