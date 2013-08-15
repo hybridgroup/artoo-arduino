@@ -59,7 +59,6 @@ artoo connect socat 4567 tty.USBABC
 
 The main steps are:
 - Connect to the Arduino via serial port/USB
-- Map your device to a unix port
 - Use a socket to serial connection to map a TCP socket to the local unix port
 - Connect to the device via Artoo
 
