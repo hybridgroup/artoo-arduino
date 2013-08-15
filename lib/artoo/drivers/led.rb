@@ -20,15 +20,15 @@ module Artoo
       # Sets led to on status
       def on
         @is_on = true
-        connection.set_pin_mode(pin, Firmata::Board::OUTPUT)
-        connection.digital_write(pin, Firmata::Board::HIGH)
+        connection.set_pin_mode(pin, Firmata::PinModes::OUTPUT)
+        connection.digital_write(pin, Firmata::PinLevels::HIGH)
       end
 
       # Sets led to off status
       def off
         @is_on = false
-        connection.set_pin_mode(pin, Firmata::Board::OUTPUT)
-        connection.digital_write(pin, Firmata::Board::LOW)
+        connection.set_pin_mode(pin, Firmata::PinModes::OUTPUT)
+        connection.digital_write(pin, Firmata::PinLevels::LOW)
       end
 
       # Toggle status
@@ -40,7 +40,7 @@ module Artoo
       # Change brightness level
       # @param [Integer] level
       def brightness(level=0)
-        connection.set_pin_mode(pin, Firmata::Board::PWM)
+        connection.set_pin_mode(pin, Firmata::PinModes::PWM)
         connection.analog_write(pin, level)
       end
     end
