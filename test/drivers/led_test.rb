@@ -118,6 +118,7 @@ describe Artoo::Drivers::Led do
       @led.commands.must_include :toggle
       @led.commands.must_include :brightness
       @led.commands.must_include :on?
+      @led.commands.must_include :off?
     end
   end
 end
