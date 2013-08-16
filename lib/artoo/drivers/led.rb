@@ -5,7 +5,7 @@ module Artoo
     # The LED driver behaviors
     class Led < Driver
 
-      COMMANDS = [:firmware, :version,
+      COMMANDS = [:firmware_name, :version,
                   :on, :off, :toggle, 
                   :brightness, 
                   :on?, :off?].freeze
