@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "artoo-arduino"
   s.version     = Artoo::Arduino::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Ron Evans", "Adrian Zankich"]
+  s.authors     = ["Ron Evans", "Adrian Zankich", "Rafael Magaña"]
   s.email       = ["artoo@hybridgroup.com"]
   s.homepage    = "https://github.com/hybridgroup/artoo-arduino"
   s.summary     = %q{Artoo adaptor and driver for Arduino}
