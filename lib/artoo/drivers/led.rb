@@ -5,36 +5,39 @@ module Artoo
     # The LED driver behaviors
     class Led < Driver
 
-      COMMANDS = [:firmware_name, :version, :on, :off, :toggle, :brightness].freeze
+      COMMANDS = [:firmware, :version,
+                  :on, :off, :toggle, 
+                  :brightness, 
+                  :on?, :off?].freeze
 
       # @return [Boolean] True if on
-      def is_on?
-        (@is_on ||= false) == true
+      def on?
+        @is_on = pin_state_initialized? ? @is_on : pin_state_on_board
       end
 
       # @return [Boolean] True if off
-      def is_off?
-        (@is_on ||= false) == false
+      def off?
+        not on?
       end
 
-      # Sets led to on status
+      # Sets led to level HIGH
       def on
+        change_state(pin, Firmata::PinLevels::HIGH)
         @is_on = true
-        connection.set_pin_mode(pin, Firmata::PinModes::OUTPUT)
-        connection.digital_write(pin, Firmata::PinLevels::HIGH)
+        true
       end
 
-      # Sets led to off status
+      # Sets led to level LOW
       def off
+        change_state(pin, Firmata::PinLevels::LOW)
         @is_on = false
-        connection.set_pin_mode(pin, Firmata::PinModes::OUTPUT)
-        connection.digital_write(pin, Firmata::PinLevels::LOW)
+        true
       end
 
       # Toggle status
       # @example on > off, off > on
       def toggle
-        is_off? ? on : off
+        on? ? off : on
       end
 
       # Change brightness level
@@ -42,6 +45,22 @@ module Artoo
       def brightness(level=0)
         connection.set_pin_mode(pin, Firmata::PinModes::PWM)
         connection.analog_write(pin, level)
+      end
+
+      private
+      def pin_state_initialized?
+        not @is_on.nil?
+      end
+
+      def pin_state_on_board
+        connection.query_pin_state(pin)
+        sleep 0.2
+        connection.pins[pin].value == 1 ? true : false
+      end
+
+      def change_state(pin, level)
+        connection.set_pin_mode(pin, Firmata::PinModes::OUTPUT)
+        connection.digital_write(pin, level)
       end
     end
   end

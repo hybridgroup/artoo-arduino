@@ -17,11 +17,10 @@ module Artoo
       # Sets values to read and write from button
       # and starts driver
       def start_driver
-        connection.set_pin_mode(pin, Firmata::Board::INPUT)
+        connection.set_pin_mode(pin, Firmata::PinModes::INPUT)
         connection.toggle_pin_reporting(pin)
 
         every(interval) do
-          connection.read_and_process
           handle_events
         end
 
@@ -29,14 +28,14 @@ module Artoo
       end
 
       def handle_events
-        while i = find_event("digital-read-#{pin}") do
+        while i = find_event("digital_read_#{pin}") do
           event = events.slice!(i)
           update(event.data.first) if !event.nil?
         end
       end
 
       def find_event(name)
-        events.index {|e| e.name == name}
+        events.index {|e| e.name == name.to_sym}
       end
 
       def events
