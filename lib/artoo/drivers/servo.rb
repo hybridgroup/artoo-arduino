@@ -15,6 +15,15 @@ module Artoo
         @current_angle = 0
       end
 
+      # Starts connection to read and process and driver
+      def start_driver
+        every(interval) do
+          connection.read_and_process
+        end
+
+        super
+      end
+
       # Moves to specified angle
       # @param [Integer] angle must be between 0-180
       def move(angle)

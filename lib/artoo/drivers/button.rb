@@ -21,6 +21,7 @@ module Artoo
         connection.toggle_pin_reporting(pin)
 
         every(interval) do
+          connection.read_and_process
           handle_events
         end
 

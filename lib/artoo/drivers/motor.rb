@@ -19,6 +19,15 @@ module Artoo
         @current_speed = 0
       end
 
+      # Starts connection to read and process and driver
+      def start_driver
+        every(interval) do
+          connection.read_and_process
+        end
+
+        super
+      end
+
       # Sets movement forward
       # @param [Integer] s speed
       def forward(s)
