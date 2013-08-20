@@ -10,9 +10,19 @@ module Artoo
                   :brightness, 
                   :on?, :off?].freeze
 
+      def start_driver
+        catch(:pin_state_response) do
+          query_pin_state_on_board
+          loop do
+            handle_pin_state_event
+          end
+        end
+        super
+      end
+
       # @return [Boolean] True if on
       def on?
-        @is_on = pin_state_initialized? ? @is_on : pin_state_on_board
+        @is_on
       end
 
       # @return [Boolean] True if off
@@ -48,14 +58,17 @@ module Artoo
       end
 
       private
-      def pin_state_initialized?
-        not @is_on.nil?
+      def query_pin_state_on_board
+        connection.query_pin_state(pin)
       end
 
-      def pin_state_on_board
-        connection.query_pin_state(pin)
-        sleep 0.2
-        connection.pins[pin].value == 1 ? true : false
+      def handle_pin_state_event
+        events = connection.async_events
+        event_index = events.index { |e| e.name == "pin_#{pin}_state".to_sym }
+        if event_index
+          @is_on = (not events.slice!(event_index).data.first.zero?)
+          throw :pin_state_response
+        end
       end
 
       def change_state(pin, level)
