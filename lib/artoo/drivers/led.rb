@@ -11,11 +11,9 @@ module Artoo
                   :on?, :off?].freeze
 
       def start_driver
-        catch(:pin_state_response) do
-          query_pin_state_on_board
-          loop do
-            handle_pin_state_event
-          end
+        every(interval) do
+          connection.read_and_process
+          handle_events
         end
         super
       end
@@ -32,15 +30,19 @@ module Artoo
 
       # Sets led to level HIGH
       def on
-        change_state(pin, Firmata::PinLevels::HIGH)
-        @is_on = true
+        if !on?
+          change_state(pin, Firmata::PinLevels::HIGH)
+          query_pin_state_on_board
+        end
         true
       end
 
       # Sets led to level LOW
       def off
-        change_state(pin, Firmata::PinLevels::LOW)
-        @is_on = false
+        if !off?
+          change_state(pin, Firmata::PinLevels::LOW)
+          query_pin_state_on_board
+        end
         true
       end
 
@@ -62,12 +64,11 @@ module Artoo
         connection.query_pin_state(pin)
       end
 
-      def handle_pin_state_event
+      def handle_events
         events = connection.async_events
-        event_index = events.index { |e| e.name == "pin_#{pin}_state".to_sym }
-        if event_index
-          @is_on = (not events.slice!(event_index).data.first.zero?)
-          throw :pin_state_response
+        while i = events.index { |e| e.name == "pin_#{pin}_state".to_sym} do
+          event = (events.slice!(i))
+          @is_on = (!event.data.first.zero?) if !event.nil?
         end
       end
 
