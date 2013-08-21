@@ -10,7 +10,8 @@ module Artoo
       # Creates connection with firmata board
       # @return [Boolean]
       def connect
-        require 'firmata' unless defined?(::Firmata)
+        require 'firmata' unless defined?(::Firmata::Board)
+        
         @firmata = ::Firmata::Board.new(connect_to)
         @firmata.connect
         super
