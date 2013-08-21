@@ -11,23 +11,21 @@ describe Artoo::Drivers::Led do
     @device.stubs(:connection).returns(@connection)
   end
 
-  #describe '#pin_state_board' do
+  describe '#pin_state_board' do
 
-    #let(:pins) { mock('pins') }
-    #let(:pin)  { mock('pin', value: 1) }
+    let(:pins) { mock('pins') }
+    let(:pin)  { mock('pin', value: 1) }
 
-    #before do
-      #@connection.stubs(:pins).returns(pins)
-    #end
+    before do
+      @connection.stubs(:pins).returns(pins)
+    end
 
-    #it 'must retrive the actual state of the led in the board' do
-      #@connection.stubs(:async_events).returns([mock('event', name: 'pin_1_state', data: [1])])
-      #@connection.expects(:query_pin_state_on_board)
-      #@connection.expects(:handle_pin_state_event)
-      #@led.start_driver
-      #@led.on?.must_equal true
-    #end
-  #end
+    it 'must retrive the actual state of the led in the board' do
+      @connection.expects(:query_pin_state).with(@pin)
+      @connection.pins.expects(:[]).with(@pin).returns(pin)
+      @led.on?.must_equal true
+    end
+  end
 
   describe '#change_state' do
 
@@ -49,22 +47,18 @@ describe Artoo::Drivers::Led do
   describe 'when pin state is read from board' do
 
     before do
-      @connection.expects(:query_pin_state).with(13)
+      @led.stubs(:pin_state_initialized?).returns(false)
     end
 
-    describe '#on? and #off? when led is on' do
+    describe '#on? and #off?' do
       it 'must return correct state when led is on' do
-        event_pin_13 = mock('event', name: :pin_13_state, data: [1])
-        @connection.stubs(:async_events).returns([event_pin_13])
-        @led.start_driver
+        @led.stubs(:pin_state_on_board).returns(true)
         @led.on?.must_equal true
-        @led.off?.must_equal false
+        #@led.off?.must_equal false
       end
 
       it 'must return correct state when led is off' do
-        event_pin_13 = mock('event', name: :pin_13_state, data: [0])
-        @connection.stubs(:async_events).returns([event_pin_13])
-        @led.start_driver
+        @led.stubs(:pin_state_on_board).returns(false)
         @led.on?.must_equal false
         @led.off?.must_equal true
       end
