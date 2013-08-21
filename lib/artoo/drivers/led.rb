@@ -10,14 +10,18 @@ module Artoo
                   :brightness, 
                   :on?, :off?].freeze
 
+      def initialize(params = {})
+        @is_on = false
+        super
+      end
       # @return [Boolean] True if on
       def on?
-        @is_on = pin_state_initialized? ? @is_on : pin_state_on_board
+        @is_on
       end
 
       # @return [Boolean] True if off
       def off?
-        not on?
+        (not on?)
       end
 
       # Sets led to level HIGH
@@ -48,16 +52,6 @@ module Artoo
       end
 
       private
-      def pin_state_initialized?
-        not @is_on.nil?
-      end
-
-      def pin_state_on_board
-        connection.query_pin_state(pin)
-        sleep 0.2
-        connection.pins[pin].value == 1 ? true : false
-      end
-
       def change_state(pin, level)
         connection.set_pin_mode(pin, Firmata::PinModes::OUTPUT)
         connection.digital_write(pin, level)
