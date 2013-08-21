@@ -5,43 +5,56 @@ module Artoo
     # The LED driver behaviors
     class Led < Driver
 
-      COMMANDS = [:firmware_name, :version, :on, :off, :toggle, :brightness].freeze
+      COMMANDS = [:firmware_name, :version,
+                  :on, :off, :toggle, 
+                  :brightness, 
+                  :on?, :off?].freeze
 
+      def initialize(params = {})
+        @is_on = false
+        super
+      end
       # @return [Boolean] True if on
-      def is_on?
-        (@is_on ||= false) == true
+      def on?
+        @is_on
       end
 
       # @return [Boolean] True if off
-      def is_off?
-        (@is_on ||= false) == false
+      def off?
+        (not on?)
       end
 
-      # Sets led to on status
+      # Sets led to level HIGH
       def on
+        change_state(pin, Firmata::PinLevels::HIGH)
         @is_on = true
-        connection.set_pin_mode(pin, Firmata::Board::OUTPUT)
-        connection.digital_write(pin, Firmata::Board::HIGH)
+        true
       end
 
-      # Sets led to off status
+      # Sets led to level LOW
       def off
+        change_state(pin, Firmata::PinLevels::LOW)
         @is_on = false
-        connection.set_pin_mode(pin, Firmata::Board::OUTPUT)
-        connection.digital_write(pin, Firmata::Board::LOW)
+        true
       end
 
       # Toggle status
       # @example on > off, off > on
       def toggle
-        is_off? ? on : off
+        on? ? off : on
       end
 
       # Change brightness level
       # @param [Integer] level
       def brightness(level=0)
-        connection.set_pin_mode(pin, Firmata::Board::PWM)
+        connection.set_pin_mode(pin, Firmata::PinModes::PWM)
         connection.analog_write(pin, level)
+      end
+
+      private
+      def change_state(pin, level)
+        connection.set_pin_mode(pin, Firmata::PinModes::OUTPUT)
+        connection.digital_write(pin, level)
       end
     end
   end

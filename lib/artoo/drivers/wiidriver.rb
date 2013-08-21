@@ -47,7 +47,7 @@ module Artoo
       end
 
       def handle_events
-        while i = find_event("i2c_reply") do
+        while i = find_event(:i2c_reply) do
           event = events.slice!(i)
           update(event.data.first) if !event.nil?
         end

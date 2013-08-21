@@ -31,14 +31,14 @@ module Artoo
       # Sets movement forward
       # @param [Integer] s speed
       def forward(s)
-        set_legs(Firmata::Board::LOW, Firmata::Board::HIGH)
+        set_legs(Firmata::PinLevels::LOW, Firmata::PinLevels::HIGH)
         speed(s)
       end
 
       # Sets movement backward
       # @param [Integer] s speed
       def backward(s)
-        set_legs(Firmata::Board::HIGH, Firmata::Board::LOW)
+        set_legs(Firmata::PinLevels::HIGH, Firmata::PinLevels::LOW)
         speed(s)
       end
 
@@ -52,16 +52,16 @@ module Artoo
       def speed(s)
         raise "Motor speed must be an integer between 0-255" unless (s.is_a?(Numeric) && s >= 0 && s <= 255)
         @current_speed = s
-        connection.set_pin_mode(speed_pin, Firmata::Board::PWM)
+        connection.set_pin_mode(speed_pin, Firmata::PinModes::PWM)
         connection.analog_write(speed_pin, s)
       end
 
       private
 
       def set_legs(l1, l2)
-        connection.set_pin_mode(leg1_pin, Firmata::Board::OUTPUT)
+        connection.set_pin_mode(leg1_pin, Firmata::PinModes::OUTPUT)
         connection.digital_write(leg1_pin, l1)
-        connection.set_pin_mode(leg2_pin, Firmata::Board::OUTPUT)
+        connection.set_pin_mode(leg2_pin, Firmata::PinModes::OUTPUT)
         connection.digital_write(leg2_pin, l2)
       end
     end

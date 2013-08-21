@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    artoo-arduino (1.0.1)
-      artoo (~> 1.0.0.rc3)
-      hybridgroup-firmata (~> 0.4.2)
+    artoo-arduino (1.0.2)
+      artoo (~> 1.0.0)
+      hybridgroup-firmata (~> 0.4.3)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    artoo (1.0.0.rc3)
+    artoo (1.0.0)
       celluloid (~> 0.14.1)
       celluloid-io (~> 0.14.1)
       multi_json (~> 1.6)
@@ -23,16 +23,16 @@ GEM
       nio4r (>= 0.4.5)
     certified (0.1.1)
     coderay (1.0.9)
-    event_spitter (0.5.0)
+    event_emitter (0.2.5)
     http (0.4.0)
       certified
       http_parser.rb
     http_parser.rb (0.5.3)
-    hybridgroup-firmata (0.4.2)
-      event_spitter
+    hybridgroup-firmata (0.4.3)
+      event_emitter
     metaclass (0.0.1)
     method_source (0.8.2)
-    minitest (5.0.6)
+    minitest (5.0.1)
     minitest-happy (1.0.0)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
