@@ -3,8 +3,6 @@ require 'artoo/drivers/led'
 
 describe Artoo::Drivers::Led do
   before do
-    Celluloid.shutdown
-    Celluloid.boot
     @device = mock('device')
     @pin = 13
     @device.stubs(:pin).returns(@pin)
@@ -13,28 +11,38 @@ describe Artoo::Drivers::Led do
     @device.stubs(:connection).returns(@connection)
   end
 
+  #describe '#pin_state_board' do
+
+    #let(:pins) { mock('pins') }
+    #let(:pin)  { mock('pin', value: 1) }
+
+    #before do
+      #@connection.stubs(:pins).returns(pins)
+    #end
+
+    #it 'must retrive the actual state of the led in the board' do
+      #@connection.stubs(:async_events).returns([mock('event', name: 'pin_1_state', data: [1])])
+      #@connection.expects(:query_pin_state_on_board)
+      #@connection.expects(:handle_pin_state_event)
+      #@led.start_driver
+      #@led.on?.must_equal true
+    #end
+  #end
+
   describe '#change_state' do
+
     before do
       @connection.expects(:set_pin_mode).with(@pin, Firmata::PinModes::OUTPUT)
     end
 
-    describe '#on' do
-      it 'must turn on the led' do
-        #@led.expects(:query_pin_state_on_board).returns(true)
-        #@led.instance_variable_set('@is_on', false)
-        #events = [mock('event', name: :pin_13_state, data: [1])]
-        #@connection.stubs(:async_events).returns(events)
-        #@connection.expects(:digital_write).with(@pin, Firmata::PinLevels::HIGH)
-        #@led.on
-        #@led.on?.must_equal true
-      end
+    it 'must set the mode to OUTPUT and write the level HIGH' do
+      @connection.expects(:digital_write).with(@pin, Firmata::PinLevels::HIGH)
+      @led.on
     end
 
-    describe '#off' do
-      it 'must turn off the led' do
-        @connection.expects(:digital_write).with(@pin, Firmata::PinLevels::LOW)
-        @led.off
-      end
+    it 'must set the mode to OUTPUT and write the level HIGH' do
+      @connection.expects(:digital_write).with(@pin, Firmata::PinLevels::LOW)
+      @led.off
     end
   end
 
