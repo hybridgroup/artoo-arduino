@@ -11,10 +11,12 @@ work do
   puts "Firmware name: #{board.firmware_name}"
   puts "Firmata version: #{board.version}"
 
+  servo.move(0) # reset the position of the sweep (same as servo.min)
+
   every(2) do
     case servo.current_angle
-    when 90 then servo.max
     when 0 then servo.center
+    when 90 then servo.max
     when 180 then servo.min
     end
   end
