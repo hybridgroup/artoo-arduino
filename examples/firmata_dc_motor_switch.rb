@@ -5,7 +5,7 @@ require 'artoo'
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
 device :board
-device :motor, :driver => :motor, :speed_pin => 3 # Use a PWM pin
+device :motor, :driver => :motor, :switch_pin => 2 # Use a digital or PWM pin
 
 work do
   board.connect
@@ -13,23 +13,13 @@ work do
   puts "Firmata version: #{board.version}"
 
   puts
-  puts "Stopping motor..."
-  motor.min # same as 'motor.stop' or 'motor.speed(0)'
+  puts "Stopping motor..." #just in case
+  motor.stop
   sleep 3
-  puts "Setting to maximum speed..."
-  motor.max # same as 'motor.start'
-  sleep 3
-
-  speed = 0
-  step = 50
 
   every 3.seconds do
-    motor.speed(speed)
-    puts "Current speed: #{motor.current_speed}"
-    speed += step
-    if [0, 250].include?(speed)
-      step = -step
-    end
+    motor.toggle
+    puts "Motor is #{motor.on? ? 'on' : 'off'}"
   end
-end
 
+end
