@@ -2,7 +2,6 @@ require 'artoo/drivers/driver'
 
 module Artoo
   module Drivers
-    # L293 or other H-bridge style motor driver behaviors for Firmata
     class Motor < Driver
 
       COMMANDS = [:stop, :start, :on?, :off?]
@@ -16,19 +15,25 @@ module Artoo
         additional_params = params[:additional_params]
         @speed_pin = additional_params[:speed_pin]
         @speed_pin = additional_params[:switch_pin] if additional_params[:switch_pin]
+
         @forward_pin = additional_params[:forward_pin]
         @backward_pin = additional_params[:backward_pin]
+
         @forward_pins = additional_params[:forward_pins]
         @backward_pins = additional_params[:backward_pins]
+
         @direction_pin = additional_params[:direction_pin]
+
         @current_state = 0
+        @current_speed = 0
+
         @current_mode = :digital # just to switch the motor on or off, no speed control
 
         @@modules_to_include =
         if @speed_pin and @forward_pins and @backward_pins
 
         elsif @speed_pin and @forward_pin and @backward_pin
-
+          [Unidirectional, BidirectionalWith2Pins]
         elsif @forward_pins and @backward_pins
 
         elsif @forward_pin and @backward_pin
@@ -48,22 +53,6 @@ module Artoo
           end
         end
 
-        private
-        def h_bridge_with_4_pins
-          [:forward_pins, :backward_pins]
-        end
-
-        def h_bridge_with_2_pins
-          [:forward_pin, :backward_pin]
-        end
-
-        def h_bridge_with_1_pin
-          [:direction]
-        end
-
-        def choose_modules
-          
-        end
       end
 
       # Starts connection to read and process and driver
@@ -162,7 +151,6 @@ module Artoo
 
       def self.included(mod)
         mod::COMMANDS.push(*[:forward, :backward])
-        @current_speed = 0
       end
 
       # Sets movement forward

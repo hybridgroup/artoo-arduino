@@ -5,7 +5,7 @@ require 'artoo'
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
 device :board
-device :motor, :driver => :motor, :switch_pin => 2 # Use a digital or PWM pin
+device :motor, :driver => :motor, :switch_pin => 3 # Use a digital or PWM pin
 
 work do
   board.connect

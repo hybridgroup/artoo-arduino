@@ -1,7 +1,8 @@
 require 'artoo'
 
 #Circuit's breadboard layout here (L239): http://www.electrojoystick.com/tutorial/?p=759
-# for the L239DNE: 
+# for the L239DNE: breadboard layout for the L239DNE: http://bit.ly/14QdjD5
+
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
 device :board
@@ -18,7 +19,7 @@ work do
   loop do
     puts "Going forward..."
     motor.forward # goes full speed
-    sleep 4
+    sleep 3
     puts "Stopping..."
     motor.stop
     sleep 2
