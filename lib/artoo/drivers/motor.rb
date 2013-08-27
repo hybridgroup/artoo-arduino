@@ -29,6 +29,8 @@ module Artoo
 
         @current_mode = :digital # just to switch the motor on or off, no speed control
 
+        @current_direction = :forward
+
         @@modules_to_include =
         if @speed_pin and @forward_pins and @backward_pins
 
@@ -69,6 +71,14 @@ module Artoo
     module Common
       def self.included(mod)
       end
+
+      def digital?
+        @current_mode == :digital
+      end
+
+      def analog?
+        @current_mode == :analog
+      end
     end
 
     module Unidirectional
@@ -89,7 +99,7 @@ module Artoo
         if digital?
           change_state(Firmata::PinLevels::HIGH)
         else
-          speed(255)
+          speed(@current_speed.zero? ? 255 : @current_speed)
         end
       end
 
@@ -98,7 +108,7 @@ module Artoo
       end
 
       def max
-        start
+        speed(255)
       end
 
       def on?
@@ -130,16 +140,8 @@ module Artoo
         @current_mode = :analog
         raise "Motor speed must be an integer between 0-255" unless (value.is_a?(Numeric) && value >= 0 && value <= 255)
         @current_speed = value
-        connection.set_pin_mode(speed_pin, ::Firmata::PinModes::PWM)
+        connection.set_pin_mode(speed_pin, Firmata::PinModes::PWM)
         connection.analog_write(speed_pin, value)
-      end
-
-      def digital?
-        @current_mode == :digital
-      end
-
-      def analog?
-        @current_mode == :analog
       end
     end
 
@@ -155,16 +157,16 @@ module Artoo
 
       # Sets movement forward
       # @param [Integer] speed
-      def forward
+      def forward(speed = nil)
         direction(:forward)
-        #speed ? self.speed(speed) : self.speed(255)
+        speed ? self.speed(speed) : start
       end
 
       # Sets movement backward
       # @param [Integer] speed
-      def backward
+      def backward(speed = nil)
         direction(:backward)
-        #speed ? self.speed(speed) : self.speed(255)
+        speed ? self.speed(speed) : start
       end
 
       def forward?
@@ -178,11 +180,12 @@ module Artoo
       private
       def change_state(state)
         @current_state = state
+        @current_speed = state.zero? ? 0 : 255
         if state == Firmata::PinLevels::HIGH
           direction(@current_direction)
+          speed(@current_speed) if speed_pin
         elsif state == Firmata::PinLevels::LOW
-          connection.digital_write(@forward_pin, state)
-          connection.digital_write(@backward_pin, state)
+          direction(:none)
         end
       end
 
@@ -195,6 +198,9 @@ module Artoo
         when :backward
           forward_pin_level = Firmata::PinLevels::LOW
           backward_pin_level = Firmata::PinLevels::HIGH
+        when :none
+          forward_pin_level = Firmata::PinLevels::LOW
+          backward_pin_level = Firmata::PinLevels::LOW
         end
         connection.set_pin_mode(@forward_pin, Firmata::PinModes::OUTPUT)
         connection.digital_write(@forward_pin, forward_pin_level)

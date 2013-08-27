@@ -13,22 +13,21 @@ work do
   puts "Firmware name: #{board.firmware_name}"
   puts "Firmata version: #{board.version}"
 
+  puts
+  puts "Stopping motor..."
   motor.stop
   sleep 2
 
   loop do
     puts "Going forward..."
-    motor.forward # goes full speed
+    motor.forward
     sleep 3
     puts "Stopping..."
     motor.stop
     sleep 2
     puts "Going backward..."
-    motor.backward # goes full speed
-    sleep 4
-    puts "Stopping..."
-    motor.stop
-    sleep 2
+    motor.backward
+    sleep 3
   end
 
 end
