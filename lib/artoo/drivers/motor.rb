@@ -72,10 +72,12 @@ module Artoo
       def self.included(mod)
       end
 
+      # Only on/off, no speed
       def digital?
         @current_mode == :digital
       end
-
+      
+      # on/off and speed
       def analog?
         @current_mode == :analog
       end
@@ -145,10 +147,6 @@ module Artoo
       end
     end
 
-    module BidirectionalWith1Pin
-    
-    end
-
     module BidirectionalWith2Pins
 
       def self.included(mod)
@@ -209,10 +207,5 @@ module Artoo
       end
 
     end
-
-    module BidirectionalWith4Pins
-
-    end
-
   end
 end
