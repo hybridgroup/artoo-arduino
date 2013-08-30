@@ -1,15 +1,15 @@
 require 'artoo'
 
-#Circuit's breadboard layout here (L239): http://www.electrojoystick.com/tutorial/?p=759
-# for the L239DNE: breadboard layout for the L239DNE: http://bit.ly/14QdjD5
+#Circuit's breadboard layout for the L293D: http://www.electrojoystick.com/tutorial/?p=759
+#For the L239DNE: http://bit.ly/14QdjD5
 
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
-device :board
+device :board, :driver => :firmata_board
 device :motor, :driver => :motor, 
-               :forward_pin  => 0, # Digital or PWM pin
-               :backward_pin => 1, # Digital or PWM pin
-               :speed_pin    => 3  # PWM pin only
+               :forward_pin  => 4, # Digital or PWM pin
+               :backward_pin => 2, # Digital or PWM pin
+               :speed_pin    => 9  # PWM pin only
 
 work do
   board.connect

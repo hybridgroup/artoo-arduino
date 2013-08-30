@@ -4,7 +4,7 @@ module Artoo
   module Drivers
     class Motor < Driver
 
-      COMMANDS = [:stop, :start, :on?, :off?]
+      COMMANDS = [:stop, :start, :on?, :off?, :toggle, :speed, :min, :max, :forward, :backward, :current_speed].freeze
 
       attr_reader :speed_pin, :switch_pin, :current_speed
 
@@ -19,40 +19,21 @@ module Artoo
         @forward_pin = additional_params[:forward_pin]
         @backward_pin = additional_params[:backward_pin]
 
-        @forward_pins = additional_params[:forward_pins]
-        @backward_pins = additional_params[:backward_pins]
-
-        @direction_pin = additional_params[:direction_pin]
-
         @current_state = 0
         @current_speed = 0
 
-        @current_mode = :digital # just to switch the motor on or off, no speed control
+        # digital: just to switch the motor on or off, no speed control
+        # analog: speed control
+        @current_mode = :digital
 
         @current_direction = :forward
 
-        @@modules_to_include =
-        if @speed_pin and @forward_pins and @backward_pins
-
-        elsif @speed_pin and @forward_pin and @backward_pin
-          [Unidirectional, BidirectionalWith2Pins]
-        elsif @forward_pins and @backward_pins
-
-        elsif @forward_pin and @backward_pin
-          [Unidirectional, BidirectionalWith2Pins]
-        elsif @speed_pin and @direction_pin
-
-        elsif @direction_pin
-
-        elsif @speed_pin
-          [Unidirectional]
-        end
+        @@modules_to_include = modules_to_include
 
         class << self
-          include Common
           @@modules_to_include.each do |m|
             include m
-          end
+          end if @@modules_to_include
         end
 
       end
@@ -66,27 +47,12 @@ module Artoo
         super
       end
 
-    end
-
-    module Common
-      def self.included(mod)
-      end
-
-      # Only on/off, no speed
       def digital?
         @current_mode == :digital
       end
       
-      # on/off and speed
       def analog?
         @current_mode == :analog
-      end
-    end
-
-    module Unidirectional
-
-      def self.included(mod)
-        mod::COMMANDS.push(*[:toggle, :speed, :min, :max, :current_speed])
       end
 
       def stop
@@ -145,13 +111,16 @@ module Artoo
         connection.set_pin_mode(speed_pin, Firmata::PinModes::PWM)
         connection.analog_write(speed_pin, value)
       end
+
+      private
+      def modules_to_include
+        if @forward_pin and @backward_pin
+          [BidirectionalWithForwardBackwardPins]
+        end
+      end
     end
 
-    module BidirectionalWith2Pins
-
-      def self.included(mod)
-        mod::COMMANDS.push(*[:forward, :backward])
-      end
+    module BidirectionalWithForwardBackwardPins
 
       # Sets movement forward
       # @param [Integer] speed
