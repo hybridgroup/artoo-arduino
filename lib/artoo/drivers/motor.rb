@@ -8,7 +8,6 @@ module Artoo
 
       attr_reader :speed_pin, :switch_pin, :current_speed
 
-      # Create new Motor
       def initialize(params={})
         super
         
