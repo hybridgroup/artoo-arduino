@@ -3,7 +3,7 @@ require 'artoo'
 # Circuit and schematic here: http://arduino.cc/en/Tutorial/Blink
 
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
-connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
+connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:4567'
 device :board, :driver => :firmata_board
 device :led, :driver => :led, :pin => 13
 

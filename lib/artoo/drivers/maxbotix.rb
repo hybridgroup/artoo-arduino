@@ -4,14 +4,13 @@ module Artoo
   module Drivers
     # Maxbotix ultrasonic range finder driver behaviors for Firmata
     class Maxbotix < Driver
+      attr_accessor :last_reading
+
       COMMANDS = [:range].freeze
 
-      def last_reading
-        @last_reading ||= 0.0
-      end
-
-      def last_reading=(val)
-        @last_reading = val
+      def initialize(params={})
+        @last_reading = 0.0
+        super
       end
 
       # @return [float] last range reading in inches
@@ -39,7 +38,7 @@ module Artoo
       end
 
       def handle_events
-        while i = find_event("analog_read_#{pin}") do
+        while i = find_event("analog_read_#{analog_pin}") do
           event = events.slice!(i)
           update(event.data.first) if !event.nil?
         end
@@ -55,9 +54,13 @@ module Artoo
 
       # Publishes events according to the ultrasonic rangefinder value
       def update(value)
-        last_reading = value
+        @last_reading = value
         publish(event_topic_name("update"), "range", range)
         publish(event_topic_name("range"), range)
+      end
+
+      def analog_pin
+        pin - 14
       end
     end
   end
