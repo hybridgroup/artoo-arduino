@@ -32,6 +32,17 @@ work do
 end
 ```
 
+## Devices supported
+
+The following hardware devices have driver support:
+- Button
+- LED
+- Maxbotix ultrasonic range finder
+- Motor (DC)
+- Servo
+- Wiichuck controller (via i2c)
+- Wiiclassic controller (via i2c)
+
 ## Connecting to Arduino
 
 ### OSX

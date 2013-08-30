@@ -24,7 +24,7 @@ module Artoo
         return ((last_reading / 2.0) * 2.54).to_f
       end
 
-      # Sets values to read and write from ultrasonic range finder
+      # Sets values to read from ultrasonic range finder
       # and starts driver
       def start_driver
         connection.set_pin_mode(pin, Firmata::PinModes::ANALOG)
