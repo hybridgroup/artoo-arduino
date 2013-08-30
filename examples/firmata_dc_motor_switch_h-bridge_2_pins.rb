@@ -10,11 +10,8 @@ device :board, :driver => :firmata_board
 device :motor, :driver => :motor, :forward_pin => 4, :backward_pin => 2
 
 work do
-  board.connect
   puts "Firmware name: #{board.firmware_name}"
   puts "Firmata version: #{board.version}"
-
-  puts
   puts "Stopping motor..."
   motor.stop
   sleep 1

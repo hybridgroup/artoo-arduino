@@ -4,15 +4,12 @@ require 'artoo'
 
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
-device :board
+device :board, :driver => :firmata_board
 device :motor, :driver => :motor, :switch_pin => 3 # Use a digital or PWM pin
 
 work do
-  board.connect
   puts "Firmware name: #{board.firmware_name}"
   puts "Firmata version: #{board.version}"
-
-  puts
   puts "Stopping motor..." #just in case
   motor.stop
   sleep 3

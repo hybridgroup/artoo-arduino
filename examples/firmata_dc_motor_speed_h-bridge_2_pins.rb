@@ -12,15 +12,11 @@ device :motor, :driver => :motor,
                :speed_pin    => 9  # PWM pin only
 
 work do
-  board.connect
   puts "Firmware name: #{board.firmware_name}"
   puts "Firmata version: #{board.version}"
-
-  puts
   puts "Stopping motor..."
   motor.stop
   sleep 2
-  #motor.speed(150) # Set initial speed
 
   loop do
     motor.forward # if no speed set, spins at max speed
@@ -39,5 +35,4 @@ work do
     puts "Going backward, Speed: #{motor.current_speed}"
     sleep 3
   end
-
 end
