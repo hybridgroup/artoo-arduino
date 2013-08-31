@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    artoo-arduino (1.0.4)
+    artoo-arduino (1.0.5.pre)
       artoo (~> 1.1.0.pre)
       hybridgroup-firmata (~> 0.4.5)
 
