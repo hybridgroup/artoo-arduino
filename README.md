@@ -63,7 +63,7 @@ $ artoo connect scan
 Now you are ready to connect to the Arduino using a socket, such as in this example port 4567:
 
 ```
-artoo connect socat 4567 tty.USBABC
+artoo connect serial ttyACM0
 ```
 
 ### Ubuntu
@@ -85,7 +85,7 @@ $ ls /dev/ttyACM*
 Now you are ready to connect to the Arduino using the socket, in this example port 4567:
 
 ```
-artoo connect socat 4567 ttyACM0
+artoo connect serial ttyACM0 4567
 ```
 
 ### Windows
