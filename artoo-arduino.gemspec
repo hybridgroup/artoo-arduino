@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "artoo-arduino"
   s.version     = Artoo::Arduino::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Ron Evans", "Adrian Zankich"]
+  s.authors     = ["Ron Evans", "Adrian Zankich", "Rafael Magaña"]
   s.email       = ["artoo@hybridgroup.com"]
   s.homepage    = "https://github.com/hybridgroup/artoo-arduino"
   s.summary     = %q{Artoo adaptor and driver for Arduino}
@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency 'artoo', '~> 1.0.0.rc3'
-  s.add_runtime_dependency 'hybridgroup-firmata', '~> 0.4.2'
+  s.add_runtime_dependency 'artoo', '~> 1.1.0.pre'
+  s.add_runtime_dependency 'hybridgroup-firmata', '~> 0.4.5'
   s.add_runtime_dependency 'littlewire', '~> 0.9.5'
   s.add_development_dependency 'minitest', '~> 5.0'
   s.add_development_dependency 'minitest-happy'

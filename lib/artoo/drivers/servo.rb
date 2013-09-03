@@ -4,7 +4,7 @@ module Artoo
   module Drivers
     # Servo behaviors for Firmata
     class Servo < Driver
-      COMMANDS = [:move, :min, :center, :max].freeze
+      COMMANDS = [:move, :min, :center, :max, :current_angle].freeze
 
       attr_reader :current_angle
 
@@ -30,7 +30,7 @@ module Artoo
         raise "Servo angle must be an integer between 0-180" unless (angle.is_a?(Numeric) && angle >= 0 && angle <= 180)
 
         @current_angle = angle
-        connection.set_pin_mode(pin, Firmata::Board::SERVO)
+        connection.set_pin_mode(pin, Firmata::PinModes::SERVO)
         connection.analog_write(pin, angle_to_span(angle))
       end
 
