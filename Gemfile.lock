@@ -4,6 +4,7 @@ PATH
     artoo-arduino (1.0.5.pre)
       artoo (~> 1.1.0.pre)
       hybridgroup-firmata (~> 0.4.5)
+      littlewire (~> 0.9.5)
 
 GEM
   remote: http://rubygems.org/
@@ -23,13 +24,20 @@ GEM
       nio4r (>= 0.5.0)
     certified (0.1.1)
     coderay (1.0.9)
+    colorist (0.0.2)
     event_emitter (0.2.5)
+    ffi (1.9.0)
     http (0.4.0)
       certified
       http_parser.rb
     http_parser.rb (0.5.3)
     hybridgroup-firmata (0.4.5)
       event_emitter
+    libusb (0.3.4)
+      ffi (>= 1.0)
+    littlewire (0.9.5)
+      colorist (>= 0.0.2)
+      libusb (>= 0.2.0)
     metaclass (0.0.1)
     method_source (0.8.2)
     minitest (5.0.1)

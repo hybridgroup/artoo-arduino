@@ -7,16 +7,15 @@ describe Artoo::Adaptors::LittleWire do
     @port = Artoo::Port.new('/dev/awesome')
     @adaptor = Artoo::Adaptors::LittleWire.new(:port => @port)
     @littlewire = mock('littlewire')
-    LittleWire.stubs(:new).returns(@littlewire)
+    LittleWire.expects(:new).returns(@littlewire)
   end
 
   it 'Artoo::Adaptors::LittleWire#connect' do
-    @littlewire.expects(:connect)
     @adaptor.connect.must_equal true
   end
 
   it 'Artoo::Adaptors::LittleWire#disconnect' do
-    @littlewire.stubs(:connect)
+    @littlewire.expects(:finished)
     @adaptor.connect
     @adaptor.disconnect
 
