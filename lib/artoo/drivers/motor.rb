@@ -37,15 +37,6 @@ module Artoo
 
       end
 
-      # Starts connection to read and process and driver
-      def start_driver
-        every(interval) do
-          connection.read_and_process
-        end
-
-        super
-      end
-
       def digital?
         @current_mode == :digital
       end
