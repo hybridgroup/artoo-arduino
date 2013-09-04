@@ -2,7 +2,7 @@ require 'artoo/drivers/driver'
 
 module Artoo
   module Drivers
-    # Button driver behaviors for Firmata
+    # Button driver behaviors
     class Button < Driver
       COMMANDS = [:is_pressed?].freeze
 
@@ -14,33 +14,15 @@ module Artoo
         (@is_pressed ||= false) == true
       end
 
-      # Sets values to read and write from button
-      # and starts driver
       def start_driver
-        connection.set_pin_mode(pin, Firmata::PinModes::INPUT)
-        connection.toggle_pin_reporting(pin)
+        @is_pressed = false
 
         every(interval) do
-          connection.read_and_process
-          handle_events
+          new_value = connection.digital_read(pin)
+          update(new_value) if new_value != @is_pressed
         end
 
         super
-      end
-
-      def handle_events
-        while i = find_event("digital_read_#{pin}") do
-          event = events.slice!(i)
-          update(event.data.first) if !event.nil?
-        end
-      end
-
-      def find_event(name)
-        events.index {|e| e.name == name.to_sym}
-      end
-
-      def events
-        connection.async_events
       end
 
       # Publishes events according to the button feedback

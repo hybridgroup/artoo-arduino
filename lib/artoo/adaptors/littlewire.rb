@@ -31,13 +31,17 @@ module Artoo
         super
       end
 
+      def firmware_name
+        "Little Wire"
+      end
+
       def connect_to_usb
         @usb = LIBUSB::Context.new.devices(
           :idVendor  => vendor,
           :idProduct => product
         ).first
       end
-      
+
       # Uses method missing to call Littlewire methods
       # @see https://github.com/Bluebie/littlewire.rb
       def method_missing(method_name, *arguments, &block)

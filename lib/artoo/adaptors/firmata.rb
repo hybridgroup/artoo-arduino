@@ -29,6 +29,34 @@ module Artoo
         firmata.digital_write(pin, convert_level(level))
       end
 
+      def digital_read(pin)
+        # TODO: check to see if already reporting
+        firmata.set_pin_mode(pin, Firmata::PinModes::INPUT)
+        firmata.toggle_pin_reporting(pin)
+
+        value = nil
+        if i = find_event("digital_read_#{pin}")
+          event = events.slice!(i)
+          value = event.data.first if !event.nil?
+        end
+        value
+      end
+
+      def find_event(name)
+        events.index {|e| e.name == name.to_sym}
+      end
+
+      def events
+        firmata.async_events
+      end
+
+      # Uses method missing to call Firmata Board methods
+      # @see http://rubydoc.info/gems/hybridgroup-firmata/0.3.0/Firmata/Board Firmata Board Documentation
+      def method_missing(method_name, *arguments, &block)
+        firmata.send(method_name, *arguments, &block)
+      end
+    
+    protected
       def convert_level(level)
         case level
         when :low
@@ -36,12 +64,6 @@ module Artoo
         when :high
           Firmata::PinLevels::HIGH
         end
-      end
-
-      # Uses method missing to call Firmata Board methods
-      # @see http://rubydoc.info/gems/hybridgroup-firmata/0.3.0/Firmata/Board Firmata Board Documentation
-      def method_missing(method_name, *arguments, &block)
-        firmata.send(method_name, *arguments, &block)
       end
     end
   end
