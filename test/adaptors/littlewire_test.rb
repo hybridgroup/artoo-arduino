@@ -6,6 +6,7 @@ describe Artoo::Adaptors::Littlewire do
   before do
     @port = Artoo::Port.new('/dev/awesome')
     @adaptor = Artoo::Adaptors::Littlewire.new(:port => @port)
+    @adaptor.expects(:connect_to_usb)
     @littlewire = mock('littlewire')
     LittleWire.expects(:new).returns(@littlewire)
   end

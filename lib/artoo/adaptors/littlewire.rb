@@ -19,12 +19,7 @@ module Artoo
       # @return [Boolean]
       def connect
         require 'littlewire' unless defined?(::LittleWire)
-        @usb = LIBUSB::Context.new.devices(
-          :idVendor  => vendor,
-          :idProduct => product
-        ).first
-
-        @littlewire = ::LittleWire.new(@usb)
+        @littlewire = ::LittleWire.new(connect_to_usb)
         super
         return true
       end
@@ -36,6 +31,13 @@ module Artoo
         super
       end
 
+      def connect_to_usb
+        @usb = LIBUSB::Context.new.devices(
+          :idVendor  => vendor,
+          :idProduct => product
+        ).first
+      end
+      
       # Uses method missing to call Littlewire methods
       # @see https://github.com/Bluebie/littlewire.rb
       def method_missing(method_name, *arguments, &block)
