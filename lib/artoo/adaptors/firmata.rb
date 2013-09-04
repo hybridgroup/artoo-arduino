@@ -42,6 +42,11 @@ module Artoo
         value
       end
 
+      def pwm_write(pin, level)
+        firmata.set_pin_mode(pin, Firmata::PinModes::PWM)
+        firmata.analog_write(pin, level)
+      end
+
       def find_event(name)
         events.index {|e| e.name == name.to_sym}
       end

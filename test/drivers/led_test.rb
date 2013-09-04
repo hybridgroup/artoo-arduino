@@ -74,8 +74,7 @@ describe Artoo::Drivers::Led do
   describe '#brightness' do
     it 'must change the brightness of the led' do
       val = 100
-      @connection.expects(:set_pin_mode).with(@pin, Firmata::PinModes::PWM)
-      @connection.expects(:analog_write).with(@pin, val)
+      @connection.expects(:pwm_write).with(@pin, val)
       @led.brightness(val)
     end
   end

@@ -27,12 +27,18 @@ module Artoo
       # Closes connection with littlewire board
       # @return [Boolean]
       def disconnect
-        @littlewire.finished
+        littlewire.finished
         super
       end
 
+      # Returns firmware name of littlewire board
+      # @return [String]
       def firmware_name
         "Little Wire"
+      end
+
+      def pwm_write(pin, level)
+        littlewire.software_pwm_write(pin, level)
       end
 
       def connect_to_usb

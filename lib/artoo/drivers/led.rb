@@ -47,8 +47,7 @@ module Artoo
       # Change brightness level
       # @param [Integer] level
       def brightness(level=0)
-        connection.set_pin_mode(pin, Firmata::PinModes::PWM)
-        connection.analog_write(pin, level)
+        connection.pwm_write(pin, level)
       end
 
       private
