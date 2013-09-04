@@ -18,7 +18,7 @@ module Artoo
         @forward_pin = additional_params[:forward_pin]
         @backward_pin = additional_params[:backward_pin]
 
-        @current_state = 0
+        @current_state = :low
         @current_speed = 0
 
         # digital: just to switch the motor on or off, no speed control
@@ -56,7 +56,7 @@ module Artoo
 
       def stop
         if digital?
-          change_state(Firmata::PinLevels::LOW)
+          change_state(:low)
         else
           speed(0)
         end
@@ -64,7 +64,7 @@ module Artoo
 
       def start
         if digital?
-          change_state(Firmata::PinLevels::HIGH)
+          change_state(:high)
         else
           speed(@current_speed.zero? ? 255 : @current_speed)
         end
@@ -80,7 +80,7 @@ module Artoo
 
       def on?
         if digital?
-          @current_state == Firmata::PinLevels::HIGH
+          @current_state == :high
         else
           @current_speed > 0
         end
@@ -96,8 +96,7 @@ module Artoo
 
       def change_state(state)
         @current_state = state
-        @current_speed = state.zero? ? 0 : 255
-        connection.set_pin_mode(@speed_pin, Firmata::PinModes::OUTPUT)
+        @current_speed = state == :low ? 0 : 255
         connection.digital_write(@speed_pin, state)
       end
 
@@ -107,8 +106,7 @@ module Artoo
         @current_mode = :analog
         raise "Motor speed must be an integer between 0-255" unless (value.is_a?(Numeric) && value >= 0 && value <= 255)
         @current_speed = value
-        connection.set_pin_mode(speed_pin, Firmata::PinModes::PWM)
-        connection.analog_write(speed_pin, value)
+        connection.pwm_write(speed_pin, value)
       end
 
       private
@@ -147,10 +145,10 @@ module Artoo
       def change_state(state)
         @current_state = state
         @current_speed = state.zero? ? 0 : 255
-        if state == Firmata::PinLevels::HIGH
+        if state == :high
           direction(@current_direction)
           speed(@current_speed) if speed_pin
-        elsif state == Firmata::PinLevels::LOW
+        elsif state == :low
           direction(:none)
         end
       end
@@ -159,18 +157,17 @@ module Artoo
         @current_direction = direction
         case direction
         when :forward
-          forward_pin_level = Firmata::PinLevels::HIGH
-          backward_pin_level = Firmata::PinLevels::LOW
+          forward_pin_level = :high
+          backward_pin_level = :low
         when :backward
-          forward_pin_level = Firmata::PinLevels::LOW
-          backward_pin_level = Firmata::PinLevels::HIGH
+          forward_pin_level = :low
+          backward_pin_level = :high
         when :none
-          forward_pin_level = Firmata::PinLevels::LOW
-          backward_pin_level = Firmata::PinLevels::LOW
+          forward_pin_level = :low
+          backward_pin_level = :low
         end
-        connection.set_pin_mode(@forward_pin, Firmata::PinModes::OUTPUT)
+        
         connection.digital_write(@forward_pin, forward_pin_level)
-        connection.set_pin_mode(@backward_pin, Firmata::PinModes::OUTPUT)
         connection.digital_write(@backward_pin, backward_pin_level)
       end
 
