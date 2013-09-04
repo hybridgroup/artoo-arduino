@@ -92,6 +92,60 @@ artoo connect serial ttyACM0 4567
 
 Someone please fill in the blanks here...
 
+## Connecting to Digispark
+
+### OSX
+
+The main steps are:
+- Plug in the Digispark to the USB port
+- Connect to the device via Artoo
+
+First plug the Digispark into your computer via the USB port. Then... (directions go here)
+
+### Ubuntu
+
+The main steps are:
+- Add a udev rule to allow access to the Digispark device
+- Plug in the Digispark to the USB port
+- Connect to the device via Artoo
+
+First, you must add a udev rule, so that Artoo can communicate with the USB device. Ubuntu and other modern Linux distibutions use udev to manage device files when USB devices are added and removed. By default, udev will create a device with read-only permission which will not allow to you download code. You must place the udev rules below into a file named /etc/udev/rules.d/49-micronucleus.rules.
+
+```
+# UDEV Rules for Micronucleus boards including the Digispark.
+# This file must be placed at:
+#
+# /etc/udev/rules.d/49-micronucleus.rules    (preferred location)
+#   or
+# /lib/udev/rules.d/49-micronucleus.rules    (req'd on some broken systems)
+#
+# After this file is copied, physically unplug and reconnect the board.
+#
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1781", ATTRS{idProduct}=="0c9f", MODE:="0666"
+KERNEL=="ttyACM*", ATTRS{idVendor}=="1781", ATTRS{idProduct}=="0c9f", MODE:="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+#
+# If you share your linux system with other users, or just don't like the
+# idea of write permission for everybody, you can replace MODE:="0666" with
+# OWNER:="yourusername" to create the device owned by you, or with
+# GROUP:="somegroupname" and mange access using standard unix groups.
+```
+
+Thanks to [@bluebie](https://github.com/Bluebie) for these instructions! (https://github.com/Bluebie/micronucleus-t85/wiki/Ubuntu-Linux)
+
+Now plug the Digispark into your computer via the USB port.
+
+Once plugged in, use the `artoo connect scan` command with the  `-t usb` option to verify your connection info:
+
+```
+$ artoo connect scan -t usb
+```
+
+Now use the `ID` info returned to find the `product` and `vendor` ID's for the connection info Digispark in your Artoo code.
+
+### Windows
+
+Someone please fill in the blanks here...
+
 ## Contributing
 
 1. Fork it
