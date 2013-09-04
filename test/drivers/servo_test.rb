@@ -8,9 +8,7 @@ describe Artoo::Drivers::Servo do
     @servo = Artoo::Drivers::Servo.new(:parent => @device)
 
     @connection = mock('connection')
-    @connection.stubs(:set_pin_mode)
-    @connection.stubs(:analog_write)
-    # @connection.stubs(:digital_write)
+    @connection.stubs(:servo_write)
     @device.stubs(:connection).returns(@connection)
   end
 

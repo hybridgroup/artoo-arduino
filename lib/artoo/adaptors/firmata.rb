@@ -30,7 +30,6 @@ module Artoo
       end
 
       def digital_read(pin)
-        # TODO: check to see if already reporting
         firmata.set_pin_mode(pin, Firmata::PinModes::INPUT)
         firmata.toggle_pin_reporting(pin)
 
@@ -47,8 +46,12 @@ module Artoo
         firmata.analog_write(pin, level)
       end
 
+      def servo_write(pin, angle)
+        firmata.set_pin_mode(pin, Firmata::PinModes::SERVO)
+        firmata.analog_write(pin, angle)
+      end
+
       def analog_read(pin)
-        # TODO: check to see if already reporting
         firmata.set_pin_mode(pin, Firmata::PinModes::ANALOG)
         firmata.toggle_pin_reporting(pin)
 
