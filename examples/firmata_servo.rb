@@ -4,7 +4,7 @@ require 'artoo'
 
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
-device :board
+device :board, :driver => :board
 device :servo, :driver => :servo, :pin => 3 # pin must be a PWM pin
 
 work do
