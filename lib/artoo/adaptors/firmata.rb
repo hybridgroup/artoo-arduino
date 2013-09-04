@@ -47,6 +47,23 @@ module Artoo
         firmata.analog_write(pin, level)
       end
 
+      def analog_read(pin)
+        # TODO: check to see if already reporting
+        firmata.set_pin_mode(pin, Firmata::PinModes::ANALOG)
+        firmata.toggle_pin_reporting(pin)
+
+        value = nil
+        if i = find_event("analog_read_#{to_analog_pin(pin)}")
+          event = events.slice!(i)
+          value = event.data.first if !event.nil?
+        end
+        value
+      end
+
+      def to_analog_pin(pin)
+        pin - 14
+      end
+
       def find_event(name)
         events.index {|e| e.name == name.to_sym}
       end

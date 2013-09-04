@@ -26,30 +26,11 @@ module Artoo
       # Sets values to read from ultrasonic range finder
       # and starts driver
       def start_driver
-        connection.set_pin_mode(pin, Firmata::PinModes::ANALOG)
-        connection.toggle_pin_reporting(pin)
-
         every(interval) do
-          connection.read_and_process
-          handle_events
+          update(connection.analog_read(pin))
         end
 
         super
-      end
-
-      def handle_events
-        while i = find_event("analog_read_#{analog_pin}") do
-          event = events.slice!(i)
-          update(event.data.first) if !event.nil?
-        end
-      end
-
-      def find_event(name)
-        events.index {|e| e.name == name.to_sym}
-      end
-
-      def events
-        connection.async_events
       end
 
       # Publishes events according to the ultrasonic rangefinder value
@@ -57,10 +38,6 @@ module Artoo
         @last_reading = value
         publish(event_topic_name("update"), "range", range)
         publish(event_topic_name("range"), range)
-      end
-
-      def analog_pin
-        pin - 14
       end
     end
   end
