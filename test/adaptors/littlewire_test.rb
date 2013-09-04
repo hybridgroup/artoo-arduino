@@ -2,19 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 require 'artoo/adaptors/littlewire'
 require 'littlewire'
 
-describe Artoo::Adaptors::LittleWire do
+describe Artoo::Adaptors::Littlewire do
   before do
     @port = Artoo::Port.new('/dev/awesome')
-    @adaptor = Artoo::Adaptors::LittleWire.new(:port => @port)
+    @adaptor = Artoo::Adaptors::Littlewire.new(:port => @port)
     @littlewire = mock('littlewire')
     LittleWire.expects(:new).returns(@littlewire)
   end
 
-  it 'Artoo::Adaptors::LittleWire#connect' do
+  it 'Artoo::Adaptors::Littlewire#connect' do
     @adaptor.connect.must_equal true
   end
 
-  it 'Artoo::Adaptors::LittleWire#disconnect' do
+  it 'Artoo::Adaptors::Littlewire#disconnect' do
     @littlewire.expects(:finished)
     @adaptor.connect
     @adaptor.disconnect

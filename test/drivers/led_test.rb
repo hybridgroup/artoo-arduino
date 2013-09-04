@@ -12,21 +12,16 @@ describe Artoo::Drivers::Led do
   end
 
   describe 'state switching' do
-
-    before do
-      @connection.expects(:set_pin_mode).with(@pin, Firmata::PinModes::OUTPUT)
-    end
-
     describe '#on' do
       it 'must turn the led on' do
-        @connection.expects(:digital_write).with(@pin, Firmata::PinLevels::HIGH)
+        @connection.expects(:digital_write).with(@pin, :high)
         @led.on
       end
     end
 
     describe '#off' do
       it 'must turn the led off' do
-        @connection.expects(:digital_write).with(@pin, Firmata::PinLevels::LOW)
+        @connection.expects(:digital_write).with(@pin, :low)
         @led.off
       end
     end
@@ -87,8 +82,6 @@ describe Artoo::Drivers::Led do
 
   describe '#commands' do
     it 'must contain all the necessary commands' do
-      @led.commands.must_include :firmware_name
-      @led.commands.must_include :version
       @led.commands.must_include :on
       @led.commands.must_include :off
       @led.commands.must_include :toggle

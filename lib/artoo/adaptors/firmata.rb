@@ -24,6 +24,20 @@ module Artoo
         super
       end
 
+      def digital_write(pin, level)
+        firmata.set_pin_mode(pin, Firmata::PinModes::OUTPUT)
+        firmata.digital_write(pin, convert_level(level))
+      end
+
+      def convert_level(level)
+        case level
+        when :low
+          Firmata::PinLevels::LOW
+        when :high
+          Firmata::PinLevels::HIGH
+        end
+      end
+
       # Uses method missing to call Firmata Board methods
       # @see http://rubydoc.info/gems/hybridgroup-firmata/0.3.0/Firmata/Board Firmata Board Documentation
       def method_missing(method_name, *arguments, &block)

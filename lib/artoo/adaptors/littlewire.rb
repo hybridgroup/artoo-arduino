@@ -4,14 +4,27 @@ module Artoo
   module Adaptors
     # Connect to Digispark or Littlewire device using Littlewire protocol
     # @see http://littlewire.cc/
-    class LittleWire < Adaptor
-      attr_reader :littlewire
+    class Littlewire < Adaptor
+      attr_reader :littlewire, :vendor, :product, :usb
+
+      def initialize(params={})
+        super
+
+        params[:additional_params] ||= {}
+        @vendor = params[:additional_params][:vendor] || 0x1781
+        @product = params[:additional_params][:product] || 0x0c9f
+      end
 
       # Creates connection with littlewire board
       # @return [Boolean]
       def connect
         require 'littlewire' unless defined?(::LittleWire)
-        @littlewire = ::LittleWire.new(connect_to)
+        @usb = LIBUSB::Context.new.devices(
+          :idVendor  => vendor,
+          :idProduct => product
+        ).first
+
+        @littlewire = ::LittleWire.new(@usb)
         super
         return true
       end
