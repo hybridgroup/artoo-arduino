@@ -2,7 +2,7 @@ require 'artoo/adaptors/adaptor'
 
 module Artoo
   module Adaptors
-    # Connect to Digispark or Littlewire device using Littlewire protocol
+    # Connect to Digispark or Littlewire device using Little Wire protocol
     # @see http://littlewire.cc/
     class Littlewire < Adaptor
       attr_reader :littlewire, :vendor, :product, :usb
@@ -38,7 +38,6 @@ module Artoo
       end
 
       def digital_read(pin)
-        littlewire.pin_mode(pin => :input)
         littlewire.digital_write(pin, true)
         littlewire.digital_read(pin)
       end
