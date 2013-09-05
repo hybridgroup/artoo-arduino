@@ -98,7 +98,7 @@ Someone please fill in the blanks here...
 
 ## Connecting to Digispark
 
-You can use Artoo with the Digispark ATTiny-based USB development board that has the Little Wire protocol sketch installed.
+You can use Artoo with the Digispark (http://www.kickstarter.com/projects/digistump/digispark-the-tiny-arduino-enabled-usb-dev-board) ATTiny-based USB development board that has the Little Wire protocol sketch installed.
 
 ### OSX
 
