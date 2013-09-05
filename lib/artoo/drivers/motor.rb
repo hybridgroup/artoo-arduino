@@ -13,7 +13,7 @@ module Artoo
         
         additional_params = params[:additional_params]
         @speed_pin = additional_params[:speed_pin]
-        @speed_pin = additional_params[:switch_pin] if additional_params[:switch_pin]
+        @switch_pin = additional_params[:switch_pin] if additional_params[:switch_pin]
 
         @forward_pin = additional_params[:forward_pin]
         @backward_pin = additional_params[:backward_pin]
