@@ -25,15 +25,17 @@ module Artoo
       end
 
       def digital_write(pin, level)
-        firmata.set_pin_mode(pin, Firmata::PinModes::OUTPUT)
+        firmata.set_pin_mode(pin, ::Firmata::PinModes::OUTPUT)
         firmata.digital_write(pin, convert_level(level))
       end
 
       def digital_read(pin)
-        firmata.set_pin_mode(pin, Firmata::PinModes::INPUT)
+        firmata.set_pin_mode(pin, ::Firmata::PinModes::INPUT)
         firmata.toggle_pin_reporting(pin)
+        firmata.read_and_process
 
         value = nil
+
         if i = find_event("digital_read_#{pin}")
           event = events.slice!(i)
           value = event.data.first if !event.nil?
@@ -42,17 +44,17 @@ module Artoo
       end
 
       def pwm_write(pin, level)
-        firmata.set_pin_mode(pin, Firmata::PinModes::PWM)
+        firmata.set_pin_mode(pin, ::Firmata::PinModes::PWM)
         firmata.analog_write(pin, level)
       end
 
       def servo_write(pin, angle)
-        firmata.set_pin_mode(pin, Firmata::PinModes::SERVO)
+        firmata.set_pin_mode(pin, ::Firmata::PinModes::SERVO)
         firmata.analog_write(pin, angle)
       end
 
       def analog_read(pin)
-        firmata.set_pin_mode(pin, Firmata::PinModes::ANALOG)
+        firmata.set_pin_mode(pin, ::Firmata::PinModes::ANALOG)
         firmata.toggle_pin_reporting(pin)
 
         value = nil
@@ -68,7 +70,7 @@ module Artoo
       end
 
       def find_event(name)
-        events.index {|e| e.name == name.to_sym}
+        events.index {|e| e.name == name.to_sym }
       end
 
       def events
@@ -80,14 +82,14 @@ module Artoo
       def method_missing(method_name, *arguments, &block)
         firmata.send(method_name, *arguments, &block)
       end
-    
+
     protected
       def convert_level(level)
         case level
         when :low
-          Firmata::PinLevels::LOW
+          ::Firmata::PinLevels::LOW
         when :high
-          Firmata::PinLevels::HIGH
+          ::Firmata::PinLevels::HIGH
         end
       end
     end
