@@ -8,6 +8,10 @@ For more information abut Artoo, check out our repo at https://github.com/hybrid
 
 [![Code Climate](https://codeclimate.com/github/hybridgroup/artoo-arduino.png)](https://codeclimate.com/github/hybridgroup/artoo-arduino) [![Build Status](https://travis-ci.org/hybridgroup/artoo-arduino.png?branch=master)](https://travis-ci.org/hybridgroup/artoo-arduino)
 
+This gem makes extensive use of the hybridgroup fork of the firmata gem (https://github.com/hybridgroup/firmata) thanks to [@hardbap](https://github.com/hardbap) with code borrrowed from the arduino_firmata gem (https://github.com/shokai/arduino_firmata) thanks to [@shokai](https://github.com/shokai)
+
+It also makes extensive use of the littlewire.rb gem (https://github.com/Bluebie/littlewire.rb) thanks to [@Bluebie](https://github.com/Bluebie)
+
 ## Installing
 
 ```
@@ -93,6 +97,8 @@ artoo connect serial ttyACM0 4567
 Someone please fill in the blanks here...
 
 ## Connecting to Digispark
+
+You can use Artoo with the Digispark ATTiny-based USB development board that has the Little Wire protocol sketch installed.
 
 ### OSX
 
