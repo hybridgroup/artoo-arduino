@@ -26,15 +26,15 @@ module Artoo
       end
 
       # Publishes events according to the button feedback
-      def update(value)
-        if value == DOWN
+      def update(pressed)
+        if pressed
           @is_pressed = true
-          publish(event_topic_name("update"), "push", value)
-          publish(event_topic_name("push"), value)
+          publish(event_topic_name("update"), "push", pressed)
+          publish(event_topic_name("push"), pressed)
         else
           @is_pressed = false
-          publish(event_topic_name("update"), "release", value)
-          publish(event_topic_name("release"), value)
+          publish(event_topic_name("update"), "release", pressed)
+          publish(event_topic_name("release"), pressed)
         end
       end
     end

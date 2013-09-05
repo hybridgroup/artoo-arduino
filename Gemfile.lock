@@ -4,7 +4,7 @@ PATH
     artoo-arduino (1.0.5.pre)
       artoo (~> 1.1.0.pre)
       hybridgroup-firmata (~> 0.4.5)
-      littlewire (~> 0.9.5)
+      littlewire (~> 0.9.7)
 
 GEM
   remote: http://rubygems.org/
@@ -35,7 +35,7 @@ GEM
       event_emitter
     libusb (0.3.4)
       ffi (>= 1.0)
-    littlewire (0.9.5)
+    littlewire (0.9.7)
       colorist (>= 0.0.2)
       libusb (>= 0.2.0)
     metaclass (0.0.1)

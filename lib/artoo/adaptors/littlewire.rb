@@ -37,6 +37,12 @@ module Artoo
         "Little Wire"
       end
 
+      def digital_read(pin)
+        littlewire.pin_mode(pin => :input)
+        littlewire.digital_write(pin, true)
+        littlewire.digital_read(pin)
+      end
+
       def pwm_write(pin, level)
         littlewire.software_pwm_write(pin, level)
       end
