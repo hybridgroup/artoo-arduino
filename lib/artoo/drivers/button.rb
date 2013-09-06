@@ -11,30 +11,31 @@ module Artoo
 
       # @return [Boolean] True if pressed
       def is_pressed?
-        (@is_pressed ||= false) == true
+        (@pressed_val == 1) ? true : false
       end
 
       def start_driver
-        @is_pressed = false
+        @pressed_val = 0
 
         every(interval) do
           new_value = connection.digital_read(pin)
-          update(new_value) if new_value != @is_pressed
+          update(new_value) if !new_value.nil? && new_value != is_pressed?
         end
 
         super
       end
 
+      private
       # Publishes events according to the button feedback
-      def update(pressed)
-        if pressed
-          @is_pressed = true
-          publish(event_topic_name("update"), "push", pressed)
-          publish(event_topic_name("push"), pressed)
+      def update(new_val)
+        if new_val == 1
+          @pressed_val = 1
+          publish(event_topic_name("update"), "push", new_val)
+          publish(event_topic_name("push"), new_val)
         else
-          @is_pressed = false
-          publish(event_topic_name("update"), "release", pressed)
-          publish(event_topic_name("release"), pressed)
+          @pressed_val = 0
+          publish(event_topic_name("update"), "release", new_val)
+          publish(event_topic_name("release"), new_val)
         end
       end
     end
