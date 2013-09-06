@@ -35,8 +35,7 @@ module Artoo
         firmata.read_and_process
 
         value = nil
-
-        if i = find_event("digital_read_#{pin}")
+        while i = find_event("digital_read_#{pin}")
           event = events.slice!(i)
           value = event.data.first if !event.nil?
         end
@@ -58,8 +57,8 @@ module Artoo
         firmata.toggle_pin_reporting(pin)
         firmata.read_and_process
 
-        value = nil
-        if i = find_event("analog_read_#{to_analog_pin(pin)}")
+        value = 0
+        while i = find_event("analog_read_#{to_analog_pin(pin)}") do
           event = events.slice!(i)
           value = event.data.first if !event.nil?
         end
