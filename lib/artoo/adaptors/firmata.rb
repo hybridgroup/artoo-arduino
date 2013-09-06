@@ -56,6 +56,7 @@ module Artoo
       def analog_read(pin)
         firmata.set_pin_mode(pin, ::Firmata::PinModes::ANALOG)
         firmata.toggle_pin_reporting(pin)
+        firmata.read_and_process
 
         value = nil
         if i = find_event("analog_read_#{to_analog_pin(pin)}")
