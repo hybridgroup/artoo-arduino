@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/hybridgroup/artoo-arduino"
   s.summary     = %q{Artoo adaptor and driver for Arduino}
   s.description = %q{Artoo adaptor and driver for Arduino}
+  s.license     = 'Apache 2.0'
 
   s.rubyforge_project = "artoo-arduino"
 
