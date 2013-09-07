@@ -7,8 +7,7 @@ describe Artoo::Drivers::Motor do
 
   before do
     @device = mock('device')
-    connection.stubs(:set_pin_mode)
-    connection.stubs(:analog_write)
+    connection.stubs(:pwm_write)
     connection.stubs(:digital_write)
     @device.stubs(:connection).returns(connection)
   end
@@ -76,8 +75,7 @@ describe Artoo::Drivers::Motor do
       let(:motor) { Artoo::Drivers::Motor.new(:parent => @device, :additional_params => {speed_pin: 3}) }
 
       it '#speed' do
-        connection.expects(:set_pin_mode).with(3, 3)
-        connection.expects(:analog_write).with(3, 255)
+        connection.expects(:pwm_write).with(3, 255)
         motor.speed(255)
       end
 
@@ -123,12 +121,6 @@ describe Artoo::Drivers::Motor do
   end
 
   describe 'bididirectional' do
-
-    before do
-      connection.expects(:set_pin_mode).with(1, 1)
-      connection.expects(:set_pin_mode).with(2, 1)
-    end
-
     let(:motor) { Artoo::Drivers::Motor.new(:parent => @device, 
                                             :additional_params => 
                                                 {:forward_pin  => 1, 
@@ -137,8 +129,8 @@ describe Artoo::Drivers::Motor do
     describe '#forward' do
 
       before do
-        connection.expects(:digital_write).with(1, 1)
-        connection.expects(:digital_write).with(2, 0)
+        connection.expects(:digital_write).with(1, :high)
+        connection.expects(:digital_write).with(2, :low)
       end
 
       describe 'when no parameter' do
@@ -164,8 +156,8 @@ describe Artoo::Drivers::Motor do
     describe '#backward' do
 
       before do
-        connection.expects(:digital_write).with(1, 0)
-        connection.expects(:digital_write).with(2, 1)
+        connection.expects(:digital_write).with(1, :low)
+        connection.expects(:digital_write).with(2, :high)
       end
 
       describe 'when no parameter' do

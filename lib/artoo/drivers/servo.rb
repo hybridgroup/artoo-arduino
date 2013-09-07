@@ -15,23 +15,13 @@ module Artoo
         @current_angle = 0
       end
 
-      # Starts connection to read and process and driver
-      def start_driver
-        every(interval) do
-          connection.read_and_process
-        end
-
-        super
-      end
-
       # Moves to specified angle
       # @param [Integer] angle must be between 0-180
       def move(angle)
         raise "Servo angle must be an integer between 0-180" unless (angle.is_a?(Numeric) && angle >= 0 && angle <= 180)
 
         @current_angle = angle
-        connection.set_pin_mode(pin, Firmata::PinModes::SERVO)
-        connection.analog_write(pin, angle_to_span(angle))
+        connection.servo_write(pin, angle_to_span(angle))
       end
 
       # Moves to min position
