@@ -1,12 +1,16 @@
 # Artoo Adaptor For Arduino
 
-This repository contains the Artoo (http://artoo.io/) adaptor and drivers for the Arduino microcontroller (http://arduino.cc/) using the Firmata protocol (http://firmata.org).
+This repository contains the Artoo (http://artoo.io/) adaptor and drivers for Arduino and Arduino-compatible microcontrollers (http://arduino.cc/) using either the Firmata protocol (http://firmata.org) or the Little Wire protocol (http://littlewire.cc).
 
 Artoo is a open source micro-framework for robotics using Ruby.
 
 For more information abut Artoo, check out our repo at https://github.com/hybridgroup/artoo
 
 [![Code Climate](https://codeclimate.com/github/hybridgroup/artoo-arduino.png)](https://codeclimate.com/github/hybridgroup/artoo-arduino) [![Build Status](https://travis-ci.org/hybridgroup/artoo-arduino.png?branch=master)](https://travis-ci.org/hybridgroup/artoo-arduino)
+
+This gem makes extensive use of the hybridgroup fork of the firmata gem (https://github.com/hybridgroup/firmata) thanks to [@hardbap](https://github.com/hardbap) with code borrrowed from the arduino_firmata gem (https://github.com/shokai/arduino_firmata) thanks to [@shokai](https://github.com/shokai)
+
+It also makes extensive use of the littlewire.rb gem (https://github.com/Bluebie/littlewire.rb) thanks to [@Bluebie](https://github.com/Bluebie)
 
 ## Installing
 
@@ -87,6 +91,62 @@ Now you are ready to connect to the Arduino using the socket, in this example po
 ```
 artoo connect serial ttyACM0 4567
 ```
+
+### Windows
+
+Someone please fill in the blanks here...
+
+## Connecting to Digispark
+
+You can use Artoo with the Digispark (http://www.kickstarter.com/projects/digistump/digispark-the-tiny-arduino-enabled-usb-dev-board) ATTiny-based USB development board that has the Little Wire protocol sketch installed.
+
+### OSX
+
+The main steps are:
+- Plug in the Digispark to the USB port
+- Connect to the device via Artoo
+
+First plug the Digispark into your computer via the USB port. Then... (directions go here)
+
+### Ubuntu
+
+The main steps are:
+- Add a udev rule to allow access to the Digispark device
+- Plug in the Digispark to the USB port
+- Connect to the device via Artoo
+
+First, you must add a udev rule, so that Artoo can communicate with the USB device. Ubuntu and other modern Linux distibutions use udev to manage device files when USB devices are added and removed. By default, udev will create a device with read-only permission which will not allow to you download code. You must place the udev rules below into a file named /etc/udev/rules.d/49-micronucleus.rules.
+
+```
+# UDEV Rules for Micronucleus boards including the Digispark.
+# This file must be placed at:
+#
+# /etc/udev/rules.d/49-micronucleus.rules    (preferred location)
+#   or
+# /lib/udev/rules.d/49-micronucleus.rules    (req'd on some broken systems)
+#
+# After this file is copied, physically unplug and reconnect the board.
+#
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1781", ATTRS{idProduct}=="0c9f", MODE:="0666"
+KERNEL=="ttyACM*", ATTRS{idVendor}=="1781", ATTRS{idProduct}=="0c9f", MODE:="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+#
+# If you share your linux system with other users, or just don't like the
+# idea of write permission for everybody, you can replace MODE:="0666" with
+# OWNER:="yourusername" to create the device owned by you, or with
+# GROUP:="somegroupname" and mange access using standard unix groups.
+```
+
+Thanks to [@bluebie](https://github.com/Bluebie) for these instructions! (https://github.com/Bluebie/micronucleus-t85/wiki/Ubuntu-Linux)
+
+Now plug the Digispark into your computer via the USB port.
+
+Once plugged in, use the `artoo connect scan` command with the  `-t usb` option to verify your connection info:
+
+```
+$ artoo connect scan -t usb
+```
+
+Now use the `ID` info returned to find the `product` and `vendor` ID's for the connection info Digispark in your Artoo code.
 
 ### Windows
 
