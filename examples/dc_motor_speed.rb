@@ -2,9 +2,10 @@ require 'artoo'
 
 #Circuit's breadboard layout here: http://learn.adafruit.com/adafruit-arduino-lesson-13-dc-motors/breadboard-layout
 
-connection :digispark, :adaptor => :littlewire, :vendor => 0x1781, :product => 0x0c9f
-device :board, :driver => :board
-device :motor, :driver => :motor, :speed_pin => 1 # Use a PWM pin
+#connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
+connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:4567'
+device :board, :driver => :device_info
+device :motor, :driver => :motor, :speed_pin => 3 # Use a PWM pin
 
 work do
   puts "Firmware name: #{board.firmware_name}"
