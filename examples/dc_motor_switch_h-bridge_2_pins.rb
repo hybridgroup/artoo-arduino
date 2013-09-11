@@ -6,7 +6,7 @@ require 'artoo'
 
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
-device :board, :driver => :board
+device :board, :driver => :device_info
 device :motor, :driver => :motor, :forward_pin => 4, :backward_pin => 2
 
 work do

@@ -5,7 +5,7 @@ require 'artoo'
 #connection :firmata, :adaptor => :firmata, :port => '/dev/ttyACM0'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:4567'
 device :sonar, :driver => :maxbotix, :pin => 14, :interval => 0.5
-device :board, :driver => :board
+device :board, :driver => :device_info
 
 work do
   on sonar, :range => :sonar_reading
