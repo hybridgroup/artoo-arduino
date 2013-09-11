@@ -22,9 +22,8 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'artoo', '~> 1.1.0'
   s.add_runtime_dependency 'artoo-gpio'
-  s.add_runtime_dependency 'artoo-i2c', '~> 0.1.0'
+  s.add_runtime_dependency 'artoo-i2c'
   s.add_runtime_dependency 'hybridgroup-firmata', '~> 0.4.5'
-  s.add_runtime_dependency 'littlewire', '~> 0.9.7'
   s.add_development_dependency 'minitest', '~> 5.0'
   s.add_development_dependency 'minitest-happy'
   s.add_development_dependency 'mocha', '~> 0.14.0'
