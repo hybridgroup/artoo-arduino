@@ -40,6 +40,7 @@ The following hardware devices have driver support via the artoo-gpio gem:
 - Button
 - LED
 - Maxbotix ultrasonic range finder
+- Analog sensor
 - Motor (DC)
 - Servo
 
