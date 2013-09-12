@@ -10,7 +10,6 @@ require 'artoo'
 
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
-#device :board, :driver => :device_info
 device :sensor, driver: :analog_sensor, pin: 0, interval: 0
 device :led, :driver => :led, :pin => 3
 
