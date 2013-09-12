@@ -1,6 +1,11 @@
 require 'artoo'
-
-# Circuit and schematic here: http://arduino.cc/en/Tutorial/Fade
+# For motor speed output:
+# Circuit's breadboard layout here: http://learn.adafruit.com/adafruit-arduino-lesson-13-dc-motors/breadboard-layout
+#
+# For the analog input:
+# Substitute the button with an analog sensor like a photoresistor and 
+# change to the correct analog input, in this case pin A0.
+# Circuit and schematic here: http://arduino.cc/en/tutorial/button
 
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'

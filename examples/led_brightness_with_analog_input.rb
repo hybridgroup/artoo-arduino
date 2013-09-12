@@ -1,6 +1,12 @@
 require 'artoo'
 
+# For LED brightness:
 # Circuit and schematic here: http://arduino.cc/en/Tutorial/Fade
+#
+# For Analog Input:
+# Substitute the button with an analog sensor like a photoresistor and 
+# change to the correct analog input, in this case pin A0.
+# Circuit and schematic here: http://arduino.cc/en/tutorial/button
 
 #connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
