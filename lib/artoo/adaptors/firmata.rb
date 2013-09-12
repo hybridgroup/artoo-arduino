@@ -89,10 +89,10 @@ module Artoo
         firmata.i2c_read_request(@i2c_address, size)
         firmata.read_and_process
 
-        value = 0
+        value = []
         while i = find_event(:i2c_reply) do
           event = events.slice!(i)
-          value = event.data.first if !event.nil?
+          value = event.data.first[:data] if !event.nil?
         end
         value
       end
