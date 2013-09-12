@@ -5,7 +5,7 @@ module Artoo
     # Connect to Arduino using Firmata
     # @see http://rubydoc.info/gems/hybridgroup-firmata/0.3.0/Firmata/Board HybridGroup Firmata Documentation
     class Firmata < Adaptor
-      attr_reader :firmata
+      attr_reader :firmata, :i2c_address
 
       # Creates connection with firmata board
       # @return [Boolean]
@@ -86,7 +86,7 @@ module Artoo
       end
 
       def i2c_read(size)
-        firmata.i2c_read_request(@i2c_address, size)
+        firmata.i2c_read_request(i2c_address, size)
         firmata.read_and_process
 
         value = []
@@ -98,7 +98,7 @@ module Artoo
       end
 
       def i2c_write(*data)
-        firmata.i2c_write_request(@i2c_address, data)
+        firmata.i2c_write_request(i2c_address, *data)
       end
 
       # helpers
