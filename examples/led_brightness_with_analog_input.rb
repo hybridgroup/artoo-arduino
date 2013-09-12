@@ -22,8 +22,9 @@ work do
   puts "Reading analog sensor intervals every => #{ sensor.interval }"
 
   every(0.25) do
-    puts "Analog Read => #{ sensor.analog_read(ai_pin) }"
-    brightness_val = sensor.analog_read_to_pwm_neg(ai_pin)
+    analog_read = sensor.analog_read(ai_pin)
+    brightness_val = analog_read.to_pwm_reverse
+    puts "Analog Read => #{ analog_read }"
     puts "brightness val => #{ brightness_val }"
     led.brightness(brightness_val)
   end

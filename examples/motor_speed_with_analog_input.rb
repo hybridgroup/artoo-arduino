@@ -21,8 +21,9 @@ work do
   puts "Reading intervals every => #{ sensor.interval }"
 
   every(0.25) do
-    puts "Analog Read => #{ sensor.analog_read(ai_pin) }"
-    motor_speed = sensor.analog_read_to_pwm_pos(ai_pin)
+    analog_read = sensor.analog_read(ai_pin)
+    motor_speed = analog_read.to_pwm
+    puts "Analog Read => #{ analog_read }"
     puts "Motor Speed => #{ motor_speed }"
     motor.speed(motor_speed)
   end
