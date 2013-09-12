@@ -12,7 +12,7 @@ require 'artoo'
 connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
 #device :board, :driver => :device_info
 device :sensor, driver: :analog_sensor, pin: 0, interval: 0
-device :motor, :driver => :motor, :speed_pin => 3 # Use a PWM pin
+device :led, :driver => :led, :pin => 3
 
 ai_pin = 0
 
@@ -22,9 +22,8 @@ work do
   puts "Reading analog sensor intervals every => #{ sensor.interval }"
 
   every(0.25) do
-    analog_read = sensor.analog_read(ai_pin)
-    brightness_val = ((255.0 / 1023.0) * (1023 - analog_read.to_f)).round
-    puts "Analog Read => #{ analog_read }"
+    puts "Analog Read => #{ sensor.analog_read(ai_pin) }"
+    brightness_val = sensor.analog_read_to_pwm_neg(ai_pin)
     puts "brightness val => #{ brightness_val }"
     led.brightness(brightness_val)
   end
