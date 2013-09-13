@@ -16,7 +16,6 @@ device :led, :driver => :led, :pin => 3
 ai_pin = 0
 
 work do
-
   puts "Reading sensor in analog pin #{ sensor.pin }"
   puts "Reading analog sensor intervals every => #{ sensor.interval }"
 
@@ -27,5 +26,4 @@ work do
     puts "brightness val => #{ brightness_val }"
     led.brightness(brightness_val)
   end
-
 end

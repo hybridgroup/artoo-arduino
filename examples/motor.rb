@@ -13,7 +13,7 @@ device :board, :driver => :device_info
 device :motor, :driver => :motor, :pin => [leg1_pin, leg2_pin, speed_pin]
 
 work do
-  puts "Firmware name: #{board.firmware_name}"
+  puts "Firmware name: #{board.name}"
   puts "Firmata version: #{board.version}"
 
   every(0.1)do

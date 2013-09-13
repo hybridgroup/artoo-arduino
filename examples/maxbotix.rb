@@ -10,7 +10,7 @@ device :board, :driver => :device_info
 work do
   on sonar, :range => :sonar_reading
 
-  puts "Firmware name: #{board.firmware_name}"
+  puts "Firmware name: #{board.name}"
   puts "Firmata version: #{board.version}"
   puts "starting sonar..."
 end

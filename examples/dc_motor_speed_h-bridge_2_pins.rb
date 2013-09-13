@@ -12,7 +12,7 @@ device :motor, :driver => :motor,
                :speed_pin    => 9  # PWM pin only
 
 work do
-  puts "Firmware name: #{board.firmware_name}"
+  puts "Firmware name: #{board.name}"
   puts "Firmata version: #{board.version}"
   puts "Stopping motor..."
   motor.stop
