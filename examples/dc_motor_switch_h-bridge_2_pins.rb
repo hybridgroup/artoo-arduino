@@ -10,7 +10,7 @@ device :board, :driver => :device_info
 device :motor, :driver => :motor, :forward_pin => 4, :backward_pin => 2
 
 work do
-  puts "Firmware name: #{board.name}"
+  puts "Firmware name: #{board.firmware_name}"
   puts "Firmata version: #{board.version}"
   puts "Stopping motor..."
   motor.stop

@@ -8,7 +8,7 @@ device :board, :driver => :device_info
 device :servo, :driver => :servo, :pin => 3 # pin must be a PWM pin
 
 work do
-  puts "Firmware name: #{board.name}"
+  puts "Firmware name: #{board.firmware_name}"
   puts "Firmata version: #{board.version}"
 
   servo.move(0) # reset the position of the sweep (same as servo.min)

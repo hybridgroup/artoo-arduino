@@ -13,7 +13,7 @@ fade_amount = 5
 
 work do
 
-  puts "Firmware name: #{board.name}"
+  puts "Firmware name: #{board.firmware_name}"
   puts "Firmata version: #{board.version}"
 
   led.on

@@ -8,7 +8,7 @@ device :board, :driver => :device_info
 device :motor, :driver => :motor, :switch_pin => 3 # Use a digital or PWM pin
 
 work do
-  puts "Firmware name: #{board.name}"
+  puts "Firmware name: #{board.firmware_name}"
   puts "Firmata version: #{board.version}"
   puts "Stopping motor..." #just in case
   motor.stop

@@ -24,8 +24,13 @@ module Artoo
         super
       end
 
-      def name
+      # device info interface
+      def firmware_name
         firmata.firmware_name
+      end
+
+      def version
+        firmata.version
       end
 
       # GPIO - digital
