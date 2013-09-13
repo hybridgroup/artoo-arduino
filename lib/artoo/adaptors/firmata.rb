@@ -24,6 +24,10 @@ module Artoo
         super
       end
 
+      def name
+        firmata.firmware_name
+      end
+
       # GPIO - digital
       def digital_write(pin, level)
         firmata.set_pin_mode(pin, ::Firmata::PinModes::OUTPUT)
