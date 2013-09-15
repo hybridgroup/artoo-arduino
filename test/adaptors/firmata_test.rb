@@ -22,4 +22,34 @@ describe Artoo::Adaptors::Firmata do
 
     @adaptor.connected?.must_equal false
   end
+
+  describe "device info interface" do
+    it "#firmware_name"
+    it "#version"
+  end
+
+  describe "digital GPIO interface" do
+    it "#digital_read"
+    it "#digital_write"
+  end
+
+  describe "analog GPIO interface" do
+    it "#analog_read"
+    it "#analog_write"
+  end
+
+  describe "PWM GPIO interface" do
+    it "#pwm_write"
+  end
+
+  describe "servo GPIO interface" do
+    it "#servo_write"
+  end
+
+  describe "i2c interface" do
+    it "#i2c_start"
+    it "#i2c_end"
+    it "#i2c_read"
+    it "#i2c_write"
+  end
 end
