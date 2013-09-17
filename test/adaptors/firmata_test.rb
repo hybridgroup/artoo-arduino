@@ -81,13 +81,13 @@ describe Artoo::Adaptors::Firmata do
 
     describe "PWM GPIO interface" do
       it "#pwm_write" do
-        @adaptor.analog_write(3, 128).must_equal true
+        @adaptor.pwm_write(3, 128).must_equal true
       end
     end
 
     describe "servo GPIO interface" do
       it "#servo_write" do
-        @adaptor.analog_write(3, 128).must_equal true
+        @adaptor.servo_write(3, 128).must_equal true
       end
     end
   end
