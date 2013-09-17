@@ -11,7 +11,7 @@ module Artoo
       # @return [Boolean]
       def connect
         require 'firmata' unless defined?(::Firmata::Board)
-        
+
         @firmata = ::Firmata::Board.new(connect_to)
         @firmata.connect
         super
@@ -51,7 +51,7 @@ module Artoo
         end
         value
       end
-      
+
       # GPIO - analog
       # NOTE pins are numbered A0-A5, which translate to digital pins 14-19
       def analog_read(pin)
@@ -91,7 +91,7 @@ module Artoo
       end
 
       def i2c_end
-        
+
       end
 
       def i2c_read(size)
@@ -110,6 +110,7 @@ module Artoo
         firmata.i2c_write_request(i2c_address, *data)
       end
 
+    private
       # helpers
       def find_event(name)
         events.index {|e| e.name == name.to_sym }
