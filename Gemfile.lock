@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    artoo-arduino (1.1.0)
-      artoo (~> 1.1.1)
+    artoo-arduino (1.2.0)
+      artoo (~> 1.2.0)
       artoo-gpio
       artoo-i2c
       hybridgroup-firmata (~> 0.4.5)
@@ -10,18 +10,18 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    artoo (1.1.1)
+    artoo (1.2.1)
       celluloid (~> 0.15.0)
       celluloid-io (~> 0.15.0)
       multi_json (~> 1.6)
       pry (~> 0.9)
       rake (~> 10.0)
-      reel (~> 0.4.0.pre)
+      reel (~> 0.4.0)
       thor (~> 0.18.1)
-    artoo-gpio (0.1.0)
-      artoo (~> 1.1.0)
-    artoo-i2c (0.1.0)
-      artoo (~> 1.1.0)
+    artoo-gpio (0.2.0)
+      artoo (~> 1.2.0)
+    artoo-i2c (0.2.0)
+      artoo (~> 1.2.0)
     celluloid (0.15.1)
       timers (~> 1.1.0)
     celluloid-io (0.15.0)
@@ -29,7 +29,7 @@ GEM
       nio4r (>= 0.5.0)
     coderay (1.0.9)
     event_emitter (0.2.5)
-    http (0.5.0.pre2)
+    http (0.5.0)
       http_parser.rb
     http_parser.rb (0.6.0.beta.2)
     hybridgroup-firmata (0.4.5)
@@ -47,10 +47,10 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
     rake (10.1.0)
-    reel (0.4.0.pre7)
-      celluloid (>= 0.15.0)
+    reel (0.4.0)
+      celluloid (>= 0.15.1)
       celluloid-io (>= 0.15.0)
-      http (>= 0.5.0.pre2)
+      http (>= 0.5.0)
       http_parser.rb (>= 0.6.0.beta.2)
       websocket_parser (>= 0.1.4)
     slop (3.4.6)
