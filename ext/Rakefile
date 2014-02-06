@@ -1,0 +1,10 @@
+require 'artoo/commands/install'
+
+task :default => :install_commands
+
+task :install_commands do
+  @install = Artoo::Commands::Install.new
+  puts "INSTALLING ARTOO LITTLEWIRE!!!"
+  @install.command(File.expand_path(File.dirname(__FILE__) + "/../lib/artoo/commands/firmata.rb"))
+  @install.command(File.expand_path(File.dirname(__FILE__) + "/../lib/artoo/commands/hex/StandardFirmata.cpp.hex"))
+end
