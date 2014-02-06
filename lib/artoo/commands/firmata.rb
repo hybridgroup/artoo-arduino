@@ -11,15 +11,14 @@ module Artoo
         part = '-patmega328p'
         programmer = '-carduino'
         baudrate = '-b115200'
-        hexPath = File.join(File.expand_path(File.dirname(__FILE__)), "hex/StandardFirmata.cpp.hex")
-        hexFile = "-Uflash:w:#{ hexPath }:i"
+        hex_path = File.join(File.expand_path(File.dirname(__FILE__)), "hex/StandardFirmata.cpp.hex")
+        hex_file = "-Uflash:w:#{ hex_path }:i"
+        port = "-P#{ options[:serial_port] }"
         case os
         when :linux
-          port = "-P#{ options[:serial_port] }"
-          run("avrdude #{ part } #{ programmer } #{ port } #{ baudrate } -D #{ hexFile }")
+          run("avrdude #{ part } #{ programmer } #{ port } #{ baudrate } -D #{ hex_file }")
         when :macosx
-          port = "-P#{ options[:serial_port] }"
-          run("avrdude #{ part } #{ programmer } #{ port } #{ baudrate } -D #{ hexFile }")
+          run("avrdude #{ part } #{ programmer } #{ port } #{ baudrate } -D #{ hex_file }")
         else
           say "OS not yet supported..."
         end
