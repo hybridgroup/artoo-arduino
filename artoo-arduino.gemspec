@@ -19,8 +19,9 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+  s.extensions    = ["ext/Rakefile"]
 
-  s.add_runtime_dependency 'artoo', '~> 1.1.1'
+  s.add_runtime_dependency 'artoo', '>= 1.4.0'
   s.add_runtime_dependency 'artoo-gpio'
   s.add_runtime_dependency 'artoo-i2c'
   s.add_runtime_dependency 'hybridgroup-firmata', '~> 0.4.5'
