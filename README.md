@@ -53,41 +53,86 @@ The following hardware devices have driver support via the artoo-i2c gem:
 ### OSX
 
 The main steps are:
-- Connect to the Arduino via serial port/USB
+- Install the artoo-arduino gem
+- Find out what serial port your arduino is connected to
+- Upload the Firmata protocol to the arduino
 - Use a socket to serial connection to map a TCP socket to the local unix port
 - Connect to the device via Artoo
 
 First plug the Arduino into your computer via the USB/serial port. A dialog box will appear telling you that a new network interface has been detected. Click "Network Preferences...", and when it opens, simply click "Apply".
 
-Once plugged in, use the `artoo connect scan` command to find out your connection info:
+Install the artoo-arduino gem:
 
 ```
-$ artoo connect scan
+$ gem install artoo-arduino
 ```
 
-Now you are ready to connect to the Arduino using a socket, such as in this example port 4567:
+Once plugged in, use the `artoo connect scan -t serial` command to find out your connection info and serial port address:
 
 ```
-artoo connect serial ttyACM0
+$ artoo connect scan -t serial
+```
+
+Use the `artoo firmata install` command to install avrdude,
+this will allow us to upload firmata to the arduino:
+
+```
+$ artoo firmata install
+```
+
+Once the avrdude uploader is installed we upload the firmata protocol to
+the arduino, use the arduino serial port address found when you ran `artoo
+connect scan -t serial`, or leave it blank to use the default address `/dev/ttyACM0`:
+
+```
+$ artoo firmata upload /dev/ttyACM0
+```
+
+Now you are ready to connect to the Arduino using a socket, in this example the socket to serial is set on port 4567 (which is also the default value):
+
+```
+artoo connect serial ttyACM0 4567
 ```
 
 ### Ubuntu
 
 The main steps are:
-- Connect to the Arduino via serial port/USB
+- Install the artoo-arduino gem
+- Find out what serial port your arduino is connected to
+- Upload the Firmata protocol to the arduino
 - Use a socket to serial connection to map a TCP socket to the local unix port
 - Connect to the device via Artoo
 
 First plug the Arduino into your computer via the USB/serial port.
 
-Once plugged in, use the `ls /dev/ttyACM*` command to find out your connection info:
+Install the artoo-arduino gem:
 
 ```
-$ ls /dev/ttyACM*
-/dev/ttyACM0
+$ gem install artoo-arduino
 ```
 
-Now you are ready to connect to the Arduino using the socket, in this example port 4567:
+Once plugged in, use the `artoo connect scan -t serial` command to find out your connection info and serial port address:
+
+```
+$ artoo connect scan -t serial
+```
+
+Use the `artoo firmata install` command to install avrdude,
+this will allow us to upload firmata to the arduino:
+
+```
+$ artoo firmata install
+```
+
+Once the avrdude uploader is installed we upload the firmata protocol to
+the arduino, use the arduino serial port address found when you ran `artoo
+connect scan -t serial`, or leave it blank to use the default address `/dev/ttyACM0`:
+
+```
+$ artoo firmata upload /dev/ttyACM0
+```
+
+Now you are ready to connect to the Arduino using a socket, in this example the socket to serial is set on port 4567 (which is also the default value):
 
 ```
 artoo connect serial ttyACM0 4567
