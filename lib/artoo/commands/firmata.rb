@@ -5,15 +5,14 @@ module Artoo
     class Firmata < Commands
       package_name "firmata"
 
-      desc "upload", "Uploads firmata to the arduino using avrdude"
-      option :serial_port, aliases: '-p', default: "/dev/ttyACM0", desc: "serial port address e.g. /dev/ttyACM0"
-      def upload
+      desc "upload [address]", "Uploads firmata to the arduino using avrdude"
+      def upload(address)
         part = '-patmega328p'
         programmer = '-carduino'
         baudrate = '-b115200'
         hex_path = File.join(File.expand_path(File.dirname(__FILE__)), "StandardFirmata.cpp.hex")
         hex_file = "-Uflash:w:#{ hex_path }:i"
-        port = "-P#{ options[:serial_port] }"
+        port = "-P#{ address }"
         case os
         when :linux
           run("avrdude #{ part } #{ programmer } #{ port } #{ baudrate } -D #{ hex_file }")
