@@ -12,7 +12,7 @@ module Artoo
         baudrate = '-b115200'
         hex_path = File.join(File.expand_path(File.dirname(__FILE__)), "StandardFirmata.cpp.hex")
         hex_file = "-Uflash:w:#{ hex_path }:i"
-        port = "-P#{ address }"
+        port = (address[/[\/\:]/].nil?) ? "-P/dev/#{ address }" : "-P#{ address }"
         case os
         when :linux
           run("avrdude #{ part } #{ programmer } #{ port } #{ baudrate } -D #{ hex_file }")
