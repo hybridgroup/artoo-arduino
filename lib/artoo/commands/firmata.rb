@@ -5,7 +5,7 @@ module Artoo
     class Firmata < Commands
       package_name "firmata"
 
-      desc "upload [address]", "Uploads firmata to the arduino using avrdude"
+      desc "upload [ADDRESS]", "Uploads firmata to the arduino using avrdude"
       def upload(address)
         part = '-patmega328p'
         programmer = '-carduino'
