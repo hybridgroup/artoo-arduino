@@ -29,6 +29,7 @@ module Artoo
         when :linux
           run('sudo apt-get install avrdude')
         when :macosx
+          require 'bundler' unless defined?(Bundler)
           Bundler.with_clean_env do
             run("brew install avrdude")
           end
