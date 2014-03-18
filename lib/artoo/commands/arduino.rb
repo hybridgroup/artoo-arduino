@@ -1,9 +1,22 @@
-require './firmata'
-
 module Artoo
   module Commands
-    class Arduino < Firmata
+    class Arduino < Artoo::Commands::Firmata
       package_name "arduino"
+
+      desc "scan", "Scan for connected arduino devices"
+      def scan
+        Artoo::Commands::Scan.new().serial()
+      end
+
+      desc "connect [NAME] [PORT]", "Connect a serial device to a TCP socket using socat"
+      option :retries, :aliases => "-r", :default => 0, :desc => "Number of times to retry connecting on failure"
+      option :baudrate, :aliases => "-b", :default => 57600, :desc => "Baud rate to use to connect to the serial device"
+      def connect(name, port)
+        retries = 1 + options[:retries].to_i
+        baudrate = options[:baudrate].to_i
+
+        Artoo::Commands::Socket.new().connect(name, port, retries, baudrate)
+      end
     end
   end
 end
@@ -12,7 +25,8 @@ end
 # can be picked up when this command file is required.
 # The steps needed to register new CLI commands from outside
 # artoo are:
-# 1. Related command files need to be copied to the artoo install commands.
+# 1. External command files (not in artoo main gem) need to be copied to the
+#    artoo installed commands.
 # 2. We do this with a rake task that is triggered when the gem is installed
 #    (see .gemspec file and look for extensions, ext/Rakefile), in the Rakefile
 #    we defined a new default class that makes use of an artoo helper class/method
