@@ -1,3 +1,5 @@
+require 'artoo/commands/firmata'
+
 module Artoo
   module Commands
     class Arduino < Artoo::Commands::Firmata
