@@ -1,8 +1,7 @@
-require 'lib/artoo/adaptors/firmata'
-require 'lib/artoo/adaptors/littlewire'
+require 'artoo/adaptors/firmata'
 
 %w{ button led motor servo wiichuck wiiclassic wiidriver }.each do |f|
-  require "lib/artoo/drivers/#{f}")
+  require "artoo/drivers/#{f}"
 end
 
-require 'lib/artoo-arduino/version'
+require 'artoo-arduino/version'

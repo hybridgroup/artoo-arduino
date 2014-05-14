@@ -1,7 +1,9 @@
+require 'minitest'
 require 'minitest/autorun'
 require 'mocha/setup'
 require 'firmata'
 require 'artoo/robot'
+require 'artoo-arduino'
 
 Celluloid.logger = nil
 
