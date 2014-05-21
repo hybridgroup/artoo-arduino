@@ -7,8 +7,8 @@ speed_pin = 3 # PWM pin
 speed = 0
 forward = true
 
-#connection :firmata, :adaptor => :firmata, :port => '/dev/tty*'
-connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
+connection :firmata, :adaptor => :firmata, :port => '/dev/ttyACM0' #linux
+#connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
 device :board, :driver => :device_info
 device :motor, :driver => :motor, :pin => [leg1_pin, leg2_pin, speed_pin]
 
