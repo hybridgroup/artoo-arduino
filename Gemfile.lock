@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    artoo-arduino (1.4.2)
+    artoo-arduino (1.4.3)
       artoo (>= 1.6.0)
       artoo-gpio
       artoo-i2c
