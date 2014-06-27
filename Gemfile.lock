@@ -1,3 +1,19 @@
+GIT
+  remote: git://github.com/hybridgroup/firmata
+  revision: 8fde4b3ce9635a0f96b30f069e728eefc9ac6d96
+  branch: rubyserial
+  specs:
+    hybridgroup-firmata (0.4.5)
+      event_emitter
+
+GIT
+  remote: git://github.com/hybridgroup/rubyserial
+  revision: 8984b5b532208768f9e2438d1be68f5c322386f2
+  branch: dev
+  specs:
+    rubyserial (0.0.1)
+      ffi (~> 1.9.3)
+
 PATH
   remote: .
   specs:
@@ -30,11 +46,12 @@ GEM
       nio4r (>= 0.5.0)
     coderay (1.1.0)
     event_emitter (0.2.5)
+    ffi (1.9.3)
+    ffi (1.9.3-java)
     http (0.5.0)
       http_parser.rb
     http_parser.rb (0.6.0)
-    hybridgroup-firmata (0.4.5)
-      event_emitter
+    http_parser.rb (0.6.0-java)
     metaclass (0.0.1)
     method_source (0.8.2)
     minitest (5.0.1)
@@ -43,10 +60,16 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.8.4)
     nio4r (1.0.0)
+    nio4r (1.0.0-java)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry (0.9.12.6-java)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+      spoon (~> 0.0)
     rake (10.1.1)
     reel (0.4.0)
       celluloid (>= 0.15.1)
@@ -56,15 +79,20 @@ GEM
       websocket_parser (>= 0.1.4)
     robeaux (0.0.4)
     slop (3.4.7)
+    spoon (0.0.4)
+      ffi
     thor (0.18.1)
     timers (1.1.0)
     websocket_parser (0.1.6)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
   artoo-arduino!
+  hybridgroup-firmata!
   minitest (~> 5.0)
   minitest-happy
   mocha (~> 0.14.0)
+  rubyserial!
