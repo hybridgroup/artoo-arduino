@@ -3,6 +3,7 @@ require 'artoo'
 connection :firmata, :adaptor => :firmata, :port => '/dev/cu.usbmodem1451'
 
 # TMP36 temperature sensor used for this example
+# Use pin number from 0 to 5 in Arduino UNO or from 40 to 55 on Arduino MEGA
 device :sensor, driver: :analog_sensor, pin: 0
 
 work do
