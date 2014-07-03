@@ -7,7 +7,7 @@ require 'artoo'
 connection :firmata, :adaptor => :firmata, :port => '/dev/ttyACM0' #linux
 #connection :firmata, :adaptor => :firmata, :port => '127.0.0.1:8023'
 
-# Analog inputs are based from 0 to 5 on the Arduino UNO, may vary on other arduino boards
+# Use pin number from 0 to 5 in Arduino UNO or from 40 to 55 on Arduino MEGA
 device :sensor, driver: :analog_sensor, pin: 0, interval: 0.25, upper: 900, lower: 200
 device :led, :driver => :led, :pin => 8
 
