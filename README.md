@@ -66,12 +66,6 @@ Install the artoo-arduino gem:
 $ gem install artoo-arduino
 ```
 
-Install the hybridgroup-serialport gem:
-
-```
-$ gem install hybridgroup-serialport
-```
-
 Once plugged in, use the `artoo connect scan -t serial` command to find out your connection info and serial port address:
 
 ```
