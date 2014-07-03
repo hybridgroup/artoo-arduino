@@ -53,10 +53,9 @@ module Artoo
       end
 
       # GPIO - analog
-      # NOTE pins are numbered A0-A5, which translate to digital pins 14-19
       def analog_read(pin)
-        firmata.set_pin_mode(digital_pin(pin), ::Firmata::PinModes::ANALOG)
-        firmata.toggle_pin_reporting(digital_pin(pin))
+        firmata.set_pin_mode(firmata.analog_pins[pin], ::Firmata::PinModes::ANALOG)
+        firmata.toggle_pin_reporting(firmata.analog_pins[pin])
         firmata.read_and_process
 
         value = 0
@@ -65,10 +64,6 @@ module Artoo
           value = event.data.first if !event.nil?
         end
         value
-      end
-
-      def digital_pin(pin = 0)
-        pin + 14
       end
 
       # GPIO - PWM
