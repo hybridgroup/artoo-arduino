@@ -66,6 +66,7 @@ describe Artoo::Adaptors::Firmata do
       it "#analog_read" do
        @firmata_event.stubs(:name).returns(:analog_read_1)
        @firmata_event.stubs(:data).returns([128])
+       @firmata.stubs(:analog_pins).returns([0,1])
        @firmata.expects(:read_and_process)
        @adaptor.analog_read(1).must_equal 128
       end
