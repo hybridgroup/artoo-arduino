@@ -66,25 +66,28 @@ Install the artoo-arduino gem:
 $ gem install artoo-arduino
 ```
 
-Once plugged in, use the `artoo connect scan -t serial` command to find out your connection info and serial port address:
+Install the gort program from here: [![gort]](http://gort.io)
+
+Once plugged in, use the gort to find out your connection info and serial port address:
 
 ```
-$ artoo connect scan -t serial
+$ gort scan serial
 ```
 
-Use the `artoo firmata install` command to install avrdude,
+Use the `gort arduino install` command to install avrdude,
 this will allow us to upload firmata to the arduino:
 
 ```
-$ artoo firmata install
+$ gort arduino install
 ```
 
 Once the avrdude uploader is installed we upload the firmata protocol to
-the arduino, use the arduino serial port address found when you ran `artoo
-connect scan -t serial`, or leave it blank to use the default address `/dev/ttyACM0`:
+the arduino, use the arduino serial port address found when you ran `gort scan serial`, or leave it blank to use the default address `/dev/ttyACM0`.
+
+Note: On a Mac you might need to use the `cu.` prefixed address instead of the `tty.` address.
 
 ```
-$ artoo firmata upload /dev/ttyACM0
+$ gort arduino upload firmata /dev/ttyACM0
 ```
 
 Change the example to use the correct serial port address
@@ -94,7 +97,7 @@ connection :arduino, :adaptor => :firmata, :port => '/dev/ttyACM0' #linux
 ```
 
 ```
-connection :arduino, :adaptor => :firmata, :port => '/dev/tty.usbmodem1411' #osx
+connection :arduino, :adaptor => :firmata, :port => '/dev/tty.usbmodem1411' #osx (might need cu. instead of tty.)
 ```
 
 ### Windows
